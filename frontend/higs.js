@@ -10,6 +10,10 @@
     'higs.home'
   ])
 
+  .config(['$routeProvider', function($routeProvider) {
+    $routeProvider.otherwise({ redirectTo: '/home' });
+  }])
+
   .run(function(){
 
   });
