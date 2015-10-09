@@ -1,1 +1,9 @@
-<h1>{{ pageHeader }}</h1>
+<div ng-controller='HomeController as home'>
+  <h1>{{ home.pageHeader }}</h1>
+
+  <ul ng-controller='ContentTypesController as contentTypes'>
+    <li ng-repeat='contentType in contentTypes'>
+      {{ contentType.name }}
+    </li>
+  </ul>
+</div> <!-- end HomeController -->

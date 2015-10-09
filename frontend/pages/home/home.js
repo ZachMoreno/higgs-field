@@ -5,12 +5,18 @@
 
   .config(['$routeProvider', function($routeProvider) {
   	$routeProvider.when('/home', {
-  		templateUrl: 'pages/home/home.html',
-  		controller: 'HomeCtrl'
+  		templateUrl: 'pages/home/home.html'
   	});
   }])
 
-  .controller('HomeCtrl', ['$scope', function($scope) {
-    $scope.pageHeader = "higs";
+  .controller('HomeController', ['$scope', function($scope) {
+    this.pageHeader = "higs";
   }]);
+
+  // .controller('ContentTypesController', ['$scope', function($scope) {
+  //   $scope.contentTypes = [
+  //     {'name': 'pages'},
+  //     {'name': 'posts'}
+  //   ];
+  // }]);
 })();

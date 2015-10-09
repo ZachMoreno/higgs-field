@@ -7,7 +7,10 @@
     'ngRoute',
 
     // pages
-    'higs.home'
+    'higs.home',
+
+    // elements
+    'higs.content-types'
   ])
 
   .config(['$routeProvider', function($routeProvider) {
