@@ -10,13 +10,13 @@
   }])
 
   .controller('HomeController', ['$scope', function($scope) {
-    this.pageHeader = "higs";
-  }]);
+    this.pageHeader = "higs field";
+  }])
 
-  // .controller('ContentTypesController', ['$scope', function($scope) {
-  //   $scope.contentTypes = [
-  //     {'name': 'pages'},
-  //     {'name': 'posts'}
-  //   ];
-  // }]);
+  .controller('ContentTypesController', ['$scope', function($scope) {
+    $scope.contentTypes = [
+      {'name': 'pages'},
+      {'name': 'posts'}
+    ];
+  }]);
 })();

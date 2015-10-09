@@ -26,11 +26,15 @@
 			<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Roboto:500,900,400italic,100,300,700,500italic,100italic,300italic,400' rel='stylesheet' type='text/css'>
 			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+			<!-- material design lite -->
+			<link rel="stylesheet" href="/node_modules/material-design-lite/material.min.css">
+			<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.blue_grey-teal.min.css" />
+
 			<!-- higs -->
 			<link rel="stylesheet" href="higs.css">
 	</head>
 
-	<body>
+	<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
 
     <ng-view>
       <!-- content -->
@@ -40,8 +44,11 @@
       <!-- angularjs -->
       <script src="/node_modules/angular/angular.js"></script>
 
-      <!-- 3rd party modules -->
+      <!-- 3rd party angular modules -->
       <script src="/node_modules/angular-route/angular-route.js"></script>
+
+			<!-- material design lite -->
+			<script src="/node_modules/material-design-lite/material.min.js"></script>
 
       <!-- higs modules -->
         <!-- app -->
