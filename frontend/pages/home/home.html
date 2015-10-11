@@ -11,14 +11,16 @@
     </div>
 
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark" ng-controller="ContentTypesController as contentTypes">
-      <a href="#" class="mdl-layout__tab" ng-repeat="contentType in contentTypes">
+      <a href="" class="mdl-layout__tab" ng-repeat="contentType in contentTypes">
         {{ contentType.name }}
       </a>
 
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
-        <i class="material-icons" role="presentation">add</i>
-        <span class="visuallyhidden">Add</span>
-      </button>
+      <a href="" alt="add new content type" ng-click="saveNewContentType('photos')"/>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
+          <i class="material-icons" role="presentation">add</i>
+          <span class="visuallyhidden">Add</span>
+        </button>
+      </a>
     </div>
   </header>
   <main class="mdl-layout__content">

@@ -14,9 +14,18 @@
   }])
 
   .controller('ContentTypesController', ['$scope', function($scope) {
+
+    // initial
     $scope.contentTypes = [
-      {'name': 'pages'},
-      {'name': 'posts'}
+      {'name': 'pages'}
     ];
+
+    $scope.saveNewContentType = function saveNewContentType(newContentTypeName) {
+      $scope.newContentType = {'name': newContentTypeName};
+
+      $scope.contentTypes.push($scope.newContentType);
+
+      console.log($scope.contentTypes);
+    }
   }]);
 })();
