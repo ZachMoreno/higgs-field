@@ -20,12 +20,18 @@
       {'name': 'pages'}
     ];
 
+    $scope.openNewContentTypeDialog = function openNewContentTypeDialog() {
+
+    };
+
     $scope.saveNewContentType = function saveNewContentType(newContentTypeName) {
       $scope.newContentType = {'name': newContentTypeName};
 
       $scope.contentTypes.push($scope.newContentType);
 
       console.log($scope.contentTypes);
-    }
+    };
+
+    // saveNewContentType('photos')
   }]);
 })();
