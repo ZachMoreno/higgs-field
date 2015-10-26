@@ -5,33 +5,32 @@
 
   .config(['$routeProvider', function($routeProvider) {
   	$routeProvider.when('/home', {
-  		templateUrl: 'pages/home/home.html'
+  		templateUrl: 'pages/home/home.html',
+      controller: 'HomeController'
   	});
   }])
 
-  .controller('HomeController', ['$scope', function($scope) {
-    this.pageHeader = "higs field";
+  .factory('ServicesAPI', ['$resource', function($resource) {
+    var remoteBaseURL  = 'http://localhost:3040/db-connections',
+
+        servicesAPI   = {
+          getAllServices: $resource(remoteBaseURL, {}, {
+                                                          query: {
+                                                              method: 'GET',
+                                                              isArray: true,
+                                                              cache: true
+                                                          }
+                                                        })
+        };
+
+    return servicesAPI;
   }])
 
-  .controller('ContentTypesController', ['$scope', function($scope) {
+  .controller('HomeController', ['$scope', '$rootScope', 'ServicesAPI', function($scope, $rootScope, ServicesAPI) {
+    ServicesAPI.getAllServices.query().$promise.then(function(promisedServices) {
+      $rootScope.services = promisedServices;
 
-    // initial
-    $scope.contentTypes = [
-      {'name': 'pages'}
-    ];
-
-    $scope.openNewContentTypeDialog = function openNewContentTypeDialog() {
-
-    };
-
-    $scope.saveNewContentType = function saveNewContentType(newContentTypeName) {
-      $scope.newContentType = {'name': newContentTypeName};
-
-      $scope.contentTypes.push($scope.newContentType);
-
-      console.log($scope.contentTypes);
-    };
-
-    // saveNewContentType('photos')
+      console.log($scope.services);
+    })
   }]);
 })();

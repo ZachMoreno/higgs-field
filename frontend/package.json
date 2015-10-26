@@ -1,5 +1,5 @@
 {
-  "name": "higs",
+  "name": "higs-frontend",
   "version": "0.0.1",
   "description": "higs",
   "main": "index.html",
@@ -13,6 +13,7 @@
     "angular-animate": "^1.4.7",
     "angular-aria": "^1.4.7",
     "angular-material": "^0.11.2",
+    "angular-resource": "^1.4.7",
     "angular-route": "^1.4.7",
     "material-design-lite": "^1.0.5"
   }

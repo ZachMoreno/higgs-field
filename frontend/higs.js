@@ -5,6 +5,7 @@
   angular.module('higs', [
     // global dependencies
     'ngRoute',
+    'ngResource',
 
     // pages
     'higs.home'
