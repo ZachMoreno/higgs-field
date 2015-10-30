@@ -32,26 +32,26 @@
       if(err !== null) {
         console.log(err);
       } else if(rows === undefined) {
-        higgsDB.run('CREATE TABLE "microServices" ' +
-                   '("id"             INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                    '"dbConnectionID" VARCHAR(255), ' +
-                    '"endPointID"     VARCHAR(255))', function(err) {
+        higgsDB.run('CREATE TABLE "microservices" ' +
+                   '("id"               INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+                    '"microserviceName" VARCHAR(255), ' +
+                    '"dbConnectionID"   INTEGER)', function(err) {
           if(err !== null) {
             console.log(err);
           } else {
-            console.log("'higgs.microServices' table initialized.");
+            console.log("'higgs.microservices' table initialized.");
           }
         });
 
         higgsDB.run('CREATE TABLE "dbConnections" ' +
-                   '("id"             INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                    '"microServiceID" INTEGER, ' +
-                    '"type"           VARCHAR(255), ' +
-                    '"dbName"         VARCHAR(255), ' +
-                    '"username"       VARCHAR(255), ' +
-                    '"password"       VARCHAR(255), ' +
-                    '"host"           VARCHAR(255), ' +
-                    '"port"           VARCHAR(255))', function(err) {
+                   '("id"         INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+                    '"endPointID" INTEGER, ' +
+                    '"type"       VARCHAR(255), ' +
+                    '"dbName"     VARCHAR(255), ' +
+                    '"username"   VARCHAR(255), ' +
+                    '"password"   VARCHAR(255), ' +
+                    '"host"       VARCHAR(255), ' +
+                    '"port"       INTEGER)', function(err) {
           if(err !== null) {
             console.log(err);
           } else {
@@ -60,11 +60,10 @@
         });
 
         higgsDB.run('CREATE TABLE "endPoints" ' +
-                   '("id"             INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                    '"microServiceID" INTEGER, ' +
-                    '"route"          VARCHAR(255), ' +
-                    '"httpVerb"       VARCHAR(255), ' +
-                    '"sql"            VARCHAR(255))', function(err) {
+                   '("id"       INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+                    '"route"    VARCHAR(255), ' +
+                    '"httpVerb" VARCHAR(255), ' +
+                    '"sql"      VARCHAR(255))', function(err) {
           if(err !== null) {
             console.log(err);
           } else {
@@ -105,28 +104,65 @@
      });
     })
 
-    .post('/microservices', function(req, res, next) {
-      // build DB object
-      var type     = req.body.type,
-          dbName   = req.body.dbName,
-          username = req.body.username,
-          password = req.body.password,
-          host     = req.body.host,
-          port     = req.body.port,
-          sql      = "INSERT INTO 'dbConnections' (type, dbName, username, password, host, port) " +
-                     "VALUES('" + type + "', '" +
-                                  dbName + "', '" +
-                                  username + "', '" +
-                                  password + "', '" +
-                                  host + "', '" +
-                                  port + "')";
+    .get('/endpoints', function (req, res, next) {
+      var sql = 'SELECT * FROM endPoints';
 
-      higgsDB.run(sql, function(err) {
-        if(err !== null) {
-          res.send(err);
-        } else {
-          res.redirect('/microservices');
-        }
+      higgsDB.all(sql, function(err, resultSetData) {
+       if(err !== null) {
+         res.send(err);
+       } else {
+         res.send(resultSetData);
+       }
+     });
+    })
+
+    .post('/microservices', function(req, res, next) {
+          // endpoint
+      var route            = req.body.route,
+          httpVerb         = req.body.httpVerb,
+          sql              = req.body.sql,
+
+          // db connection
+          type             = req.body.type,
+          endPointID       = "last_insert_rowid",
+          dbName           = req.body.dbName,
+          username         = req.body.username,
+          password         = req.body.password,
+          host             = req.body.host,
+          port             = req.body.port,
+
+          // microservice
+          microserviceName = req.body.microserviceName,
+          dbConnectionID   = "last_insert_rowid";
+
+      higgsDB.beginTransaction(function(err, trans) {
+        trans.run("INSERT INTO 'endPoints' (route, httpVerb, sql) " +
+                  "VALUES('" + route    + "', '" +
+                               httpVerb + "', '" +
+                               sql      + "')");
+
+        trans.run("INSERT INTO 'dbConnections' (type, endPointID, dbName, username, password, host, port) " +
+                  "VALUES('" + type       + "', '" +
+                               endPointID + "', '" +
+                               dbName     + "', '" +
+                               username   + "', '" +
+                               password   + "', '" +
+                               host       + "', '" +
+                               port       + "')");
+
+        trans.run("INSERT INTO 'microservices' (microserviceName, dbConnectionID) " +
+                  "VALUES('" + microserviceName + "', '" +
+                               dbConnectionID   + "')");
+
+        trans.commit(function(err) {
+          if(err) {
+            // auto trans.rollback() runs on error
+            console.log("commit() failed.", err);
+          } else {
+            console.log("commit() was successful.");
+            res.redirect('/microservices');
+          }
+        });
       });
     })
 
@@ -142,7 +178,6 @@
         }
       });
     });
-
 
 
   higgsAPI.use(router);
