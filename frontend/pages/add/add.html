@@ -10,7 +10,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                <select class="full-width" ng-model="newServiceForm.type">
+                <select class="full-width" ng-model="newServiceForm.db.type">
                   <option value="" selected></option>
                   <option value="mysql">MySQL</option>
                   <option value="oracle">Oracle</option>
@@ -24,7 +24,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.dbName" />
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.db.name" />
               </div>
           </li>
 
@@ -34,7 +34,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.host" />
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.db.host" />
               </div>
 
               <div class="mdl-cell mdl-cell--1-col">
@@ -42,7 +42,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="number" ng-model="newServiceForm.port" />
+                  <input class="mdl-textfield__input" type="number" ng-model="newServiceForm.db.port" />
               </div>
           </li>
 
@@ -52,7 +52,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.username" />
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.db.username" />
               </div>
 
               <div class="mdl-cell mdl-cell--1-col">
@@ -60,7 +60,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="password" ng-model="newServiceForm.password" />
+                  <input class="mdl-textfield__input" type="password" ng-model="newServiceForm.db.password" />
               </div>
           </li>
         </ul>
