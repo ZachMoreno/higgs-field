@@ -93,7 +93,11 @@
     })
 
     .get('/microservices', function (req, res, next) {
-      var sql = 'SELECT * FROM microServices';
+      var sql = 'SELECT * FROM microservices a' +
+                'JOIN dbConnections b ON' +
+                'a.dbConnectionID = b.id' +
+                'JOIN endPoints c ON' +
+                'b.endPointID = c.id';
 
       higgsDB.all(sql, function(err, resultSetData) {
        if(err !== null) {
