@@ -1,7 +1,23 @@
 <div class="mdl-grid demo-content">
-    <!-- <h4>Add Database Connection</h4> -->
+    <!-- <h4 class="mdl-color-text--blue-grey-100 text-center">Add New Microservice</h4> -->
 
     <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+      <form>
+        <ul class="no-line-list">
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--2-col">
+                  Microservice Name
+              </div>
+
+              <div class="mdl-cell mdl-cell--10-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.microserviceName" />
+              </div>
+          </li>
+        </ul>
+      </form>
+
+      <h6 class="mdl-color-text--blue-grey-300 text-center">Database Connection</h6>
+
       <form>
         <ul class="no-line-list">
           <li class="mdl-grid">
@@ -10,7 +26,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                <select class="full-width" ng-model="newServiceForm.db.type">
+                <select class="full-width" ng-model="newServiceForm.type">
                   <option value="" selected></option>
                   <option value="mysql">MySQL</option>
                   <option value="oracle">Oracle</option>
@@ -24,7 +40,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.db.name" />
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.name" />
               </div>
           </li>
 
@@ -34,7 +50,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.db.host" />
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.host" />
               </div>
 
               <div class="mdl-cell mdl-cell--1-col">
@@ -42,7 +58,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="number" ng-model="newServiceForm.db.port" />
+                  <input class="mdl-textfield__input" type="number" ng-model="newServiceForm.port" />
               </div>
           </li>
 
@@ -52,7 +68,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.db.username" />
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.username" />
               </div>
 
               <div class="mdl-cell mdl-cell--1-col">
@@ -60,24 +76,56 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="password" ng-model="newServiceForm.db.password" />
+                  <input class="mdl-textfield__input" type="password" ng-model="newServiceForm.password" />
               </div>
           </li>
         </ul>
       </form>
 
-      <div class="mdl-grid mdl-card__actions mdl-card--border mdl-color--blue-grey-800">
-        <div class="mdl-cell mdl-cell--4-col">
-          <a href="" ng-click="clearNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect  mdl-color--pink-A200 mdl-color-text--blue-grey-800"><i class="material-icons">delete</i> Clear</a>
-        </div>
+      <h6 class="mdl-color-text--blue-grey-300 text-center">Endpoints</h6>
 
-        <div class="mdl-cell mdl-cell--4-col">
-          <h5 class="mdl-color-text--blue-grey-100 no-margin text-center">Database Connection</h5>
-        </div>
+      <form>
+        <ul class="no-line-list">
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--2-col">
+                  HTTP Verb
+              </div>
 
-        <div class="mdl-cell mdl-cell--4-col">
+              <div class="mdl-cell mdl-cell--2-col">
+                  <select class="full-width" ng-model="newServiceForm.httpVerb">
+                    <option value="" selected></option>
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="PATCH">PATCH</option>
+                    <option value="DELETE">DELETE</option>
+                  </select>
+              </div>
+
+              <div class="mdl-cell mdl-cell--2-col">
+                  Route
+              </div>
+
+              <div class="mdl-cell mdl-cell--6-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.route" />
+              </div>
+          </li>
+
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--2-col">
+                  SQL
+              </div>
+
+              <div class="mdl-cell mdl-cell--10-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.sql" />
+              </div>
+          </li>
+        </ul>
+      </form>
+
+      <div class="mdl-card__actions mdl-card--border mdl-color--blue-grey-800">
+          <a href="" ng-click="clearNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--pink-A200 mdl-color-text--blue-grey-800"><i class="material-icons">delete</i> Clear</a>
           <a href="" ng-click="submitNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right  mdl-color--teal-A400 mdl-color-text--blue-grey-800"><i class="material-icons">save</i> Save</a>
-        </div>
       </div>
     </div>
 </div>

@@ -124,7 +124,6 @@
 
           // db connection
           type             = req.body.type,
-          endPointID       = "last_insert_rowid",
           dbName           = req.body.dbName,
           username         = req.body.username,
           password         = req.body.password,
@@ -132,8 +131,7 @@
           port             = req.body.port,
 
           // microservice
-          microserviceName = req.body.microserviceName,
-          dbConnectionID   = "last_insert_rowid";
+          microserviceName = req.body.microserviceName;
 
       higgsDB.beginTransaction(function(err, trans) {
         trans.run("INSERT INTO 'endPoints' (route, httpVerb, sql) " +
@@ -142,8 +140,8 @@
                                sql      + "')");
 
         trans.run("INSERT INTO 'dbConnections' (type, endPointID, dbName, username, password, host, port) " +
-                  "VALUES('" + type       + "', '" +
-                               endPointID + "', '" +
+                  "VALUES('" + type       +
+                          "', last_insert_rowid(), '" +
                                dbName     + "', '" +
                                username   + "', '" +
                                password   + "', '" +
@@ -151,8 +149,8 @@
                                port       + "')");
 
         trans.run("INSERT INTO 'microservices' (microserviceName, dbConnectionID) " +
-                  "VALUES('" + microserviceName + "', '" +
-                               dbConnectionID   + "')");
+                  "VALUES('" + microserviceName +
+                          "', last_insert_rowid())");
 
         trans.commit(function(err) {
           if(err) {
