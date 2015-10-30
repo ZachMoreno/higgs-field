@@ -1,18 +1,19 @@
 (function() {
   'use strict';
 
-  var express = require('express'),
-      router  = express.Router(),
-      parser  = require('body-parser'),
-      port    = '3040',
-      hostIP  = 'localhost',
-      mysql   = require('mysql'),
-      sqlite3 = require('sqlite3').verbose(),
-      higsDB  = new sqlite3.Database('higs.db'),
-      higsAPI = express();
+  var express  = require('express'),
+      router   = express.Router(),
+      parser   = require('body-parser'),
+      port     = '3040',
+      hostIP   = 'localhost',
+      mysql    = require('mysql'),
+      sqlite   = require('sqlite3').verbose(),
+      trans    = require('sqlite3-transactions').TransactionDatabase,
+      higgsDB  = new trans(new sqlite.Database('higgs.db')),
+      higgsAPI = express();
 
   // http://enable-cors.org/server_expressjs.html
-  higsAPI.all('*', function(req, res, next) {
+  higgsAPI.all('*', function(req, res, next) {
   	res.header('Access-Control-Allow-Origin', '*');
   	// res.header('Access-Control-Allow-Methods', 'GET');
   	res.header('Access-Control-Allow-Headers', 'content-Type,X-Requested-With');
@@ -20,29 +21,29 @@
   });
 
   // middleware
-  higsAPI.use(parser.json());
-  higsAPI.use(parser.urlencoded({
+  higgsAPI.use(parser.json());
+  higgsAPI.use(parser.urlencoded({
   	extended: true
   }));
 
   // Database initialization
-  higsDB.get("SELECT name FROM sqlite_master WHERE type='table' AND name='higs'",
+  higgsDB.get("SELECT name FROM sqlite_master WHERE type='table' AND name='higgs'",
     function(err, rows) {
       if(err !== null) {
         console.log(err);
       } else if(rows === undefined) {
-        higsDB.run('CREATE TABLE "microServices" ' +
+        higgsDB.run('CREATE TABLE "microServices" ' +
                    '("id"             INTEGER PRIMARY KEY AUTOINCREMENT, ' +
                     '"dbConnectionID" VARCHAR(255), ' +
                     '"endPointID"     VARCHAR(255))', function(err) {
           if(err !== null) {
             console.log(err);
           } else {
-            console.log("'higs.microServices' table initialized.");
+            console.log("'higgs.microServices' table initialized.");
           }
         });
 
-        higsDB.run('CREATE TABLE "dbConnections" ' +
+        higgsDB.run('CREATE TABLE "dbConnections" ' +
                    '("id"             INTEGER PRIMARY KEY AUTOINCREMENT, ' +
                     '"microServiceID" INTEGER, ' +
                     '"type"           VARCHAR(255), ' +
@@ -54,11 +55,11 @@
           if(err !== null) {
             console.log(err);
           } else {
-            console.log("'higs.dbConnections' table initialized.");
+            console.log("'higgs.dbConnections' table initialized.");
           }
         });
 
-        higsDB.run('CREATE TABLE "endPoints" ' +
+        higgsDB.run('CREATE TABLE "endPoints" ' +
                    '("id"             INTEGER PRIMARY KEY AUTOINCREMENT, ' +
                     '"microServiceID" INTEGER, ' +
                     '"route"          VARCHAR(255), ' +
@@ -67,7 +68,7 @@
           if(err !== null) {
             console.log(err);
           } else {
-            console.log("'higs.endPoints' table initialized.");
+            console.log("'higgs.endPoints' table initialized.");
           }
         });
       } else {
@@ -77,13 +78,13 @@
 
   router
     .get('/', function (req, res) {
-      res.send('<h1>higsAPI</h1>');
+      res.send('<h1>higgsAPI</h1>');
     })
 
     .get('/dbconnections', function (req, res, next) {
       var sql = 'SELECT * FROM dbConnections';
 
-      higsDB.all(sql, function(err, resultSetData) {
+      higgsDB.all(sql, function(err, resultSetData) {
        if(err !== null) {
          res.send(err);
        } else {
@@ -95,7 +96,7 @@
     .get('/microservices', function (req, res, next) {
       var sql = 'SELECT * FROM microServices';
 
-      higsDB.all(sql, function(err, resultSetData) {
+      higgsDB.all(sql, function(err, resultSetData) {
        if(err !== null) {
          res.send(err);
        } else {
@@ -120,7 +121,7 @@
                                   host + "', '" +
                                   port + "')";
 
-      higsDB.run(sql, function(err) {
+      higgsDB.run(sql, function(err) {
         if(err !== null) {
           res.send(err);
         } else {
@@ -133,7 +134,7 @@
       var sql = "DELETE FROM microServices WHERE id='" + req.params.id + "'";
 
       // remove DB object by id
-      higsDB.run(sql, function(err) {
+      higgsDB.run(sql, function(err) {
         if(err !== null) {
           res.send(err);
         } else {
@@ -144,8 +145,8 @@
 
 
 
-  higsAPI.use(router);
-  higsAPI.listen(port, hostIP, function() {
-      console.log('higsAPI is awake @ ' + hostIP + ':' + port);
+  higgsAPI.use(router);
+  higgsAPI.listen(port, hostIP, function() {
+      console.log('higgsAPI is awake @ ' + hostIP + ':' + port);
   });
 })();
