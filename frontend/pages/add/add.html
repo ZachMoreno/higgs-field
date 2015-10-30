@@ -1,0 +1,83 @@
+<div class="mdl-grid demo-content">
+    <!-- <h4>Add Database Connection</h4> -->
+
+    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+      <form>
+        <ul class="no-line-list">
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--1-col">
+                  DB Type
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                <select class="full-width" ng-model="newServiceForm.type">
+                  <option value="" selected></option>
+                  <option value="mysql">MySQL</option>
+                  <option value="oracle">Oracle</option>
+                  <option value="ms-sql">Microsoft SQL</option>
+                  <option value="sqlite">SQLite</option>
+                </select>
+              </div>
+
+              <div class="mdl-cell mdl-cell--1-col">
+                  DB Name
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.dbName" />
+              </div>
+          </li>
+
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--1-col">
+                  Host
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.host" />
+              </div>
+
+              <div class="mdl-cell mdl-cell--1-col">
+                  Port
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                  <input class="mdl-textfield__input" type="number" ng-model="newServiceForm.port" />
+              </div>
+          </li>
+
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--1-col">
+                  Username
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.username" />
+              </div>
+
+              <div class="mdl-cell mdl-cell--1-col">
+                  Password
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                  <input class="mdl-textfield__input" type="password" ng-model="newServiceForm.password" />
+              </div>
+          </li>
+        </ul>
+      </form>
+
+      <div class="mdl-grid mdl-card__actions mdl-card--border mdl-color--blue-grey-800">
+        <div class="mdl-cell mdl-cell--4-col">
+          <a href="" ng-click="clearNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect  mdl-color--pink-A200 mdl-color-text--blue-grey-800"><i class="material-icons">delete</i> Clear</a>
+        </div>
+
+        <div class="mdl-cell mdl-cell--4-col">
+          <h4 class="mdl-color-text--blue-grey-100 no-margin text-center">Database Connection</h4>
+        </div>
+
+        <div class="mdl-cell mdl-cell--4-col">
+          <a href="" ng-click="submitNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right  mdl-color--teal-A400 mdl-color-text--blue-grey-800"><i class="material-icons">save</i> Save</a>
+        </div>
+      </div>
+    </div>
+</div>

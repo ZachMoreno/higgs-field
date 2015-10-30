@@ -2,13 +2,14 @@
   'use strict';
 
   // higs app
-  angular.module('higs', [
+  angular.module('higgs', [
     // global dependencies
     'ngRoute',
     'ngResource',
 
     // pages
-    'higs.home'
+    'higgs.home',
+    'higgs.add'
   ])
 
   .config(['$routeProvider', function($routeProvider) {

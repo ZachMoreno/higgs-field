@@ -279,6 +279,19 @@ ul.lined-list li:last-of-type {
     float: right;
 }
 
-input {
+.text-center {
+    text-align: center;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+input,
+select {
     font-weight: bold;
+}
+
+.full-width {
+  width: 100%;
 }

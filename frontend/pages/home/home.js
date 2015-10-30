@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('higs.home', ['ngRoute'])
+  angular.module('higgs.home', ['ngRoute'])
 
   .config(['$routeProvider', function($routeProvider) {
   	$routeProvider.when('/home', {
@@ -10,27 +10,25 @@
   	});
   }])
 
-  .factory('ServicesAPI', ['$resource', function($resource) {
-    var remoteBaseURL  = 'http://localhost:3040/db-connections',
+  .factory('GetServicesAPI', ['$resource', function($resource) {
+    var remoteBaseURL  = 'http://localhost:3040/microservices',
 
-        servicesAPI   = {
-          getAllServices: $resource(remoteBaseURL, {}, {
-                                                          query: {
-                                                              method: 'GET',
-                                                              isArray: true,
-                                                              cache: true
-                                                          }
-                                                        })
+        getServicesAPI   = {
+          get: $resource(remoteBaseURL, {}, {
+                                              query: {
+                                                  method: 'GET',
+                                                  isArray: true,
+                                                  cache: true
+                                              }
+                                            })
         };
 
-    return servicesAPI;
+    return getServicesAPI;
   }])
 
-  .controller('HomeController', ['$scope', '$rootScope', 'ServicesAPI', function($scope, $rootScope, ServicesAPI) {
-    ServicesAPI.getAllServices.query().$promise.then(function(promisedServices) {
+  .controller('HomeController', ['$scope', '$rootScope', 'GetServicesAPI', function($scope, $rootScope, GetServicesAPI) {
+    GetServicesAPI.get.query().$promise.then(function(promisedServices) {
       $rootScope.services = promisedServices;
-
-      console.log($scope.services);
     })
   }]);
 })();
