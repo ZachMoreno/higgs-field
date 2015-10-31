@@ -1,41 +1,40 @@
 (function() {
-  'use strict';
+    'use strict';
 
-  angular.module('higgs.add', ['ngRoute'])
+    angular.module('higgs.add', ['ngRoute'])
 
-  .config(['$routeProvider', function($routeProvider) {
-  	$routeProvider.when('/add', {
-  		templateUrl: 'pages/add/add.html',
-      controller: 'AddController'
-  	});
-  }])
+    .config(['$routeProvider', function($routeProvider) {
+        $routeProvider.when('/add', {
+            templateUrl: 'pages/add/add.html',
+            controller: 'AddController'
+        });
+    }])
 
-  .factory('AddServicesAPI', ['$resource', function($resource) {
-    var remoteBaseURL = 'http://localhost:3040/microservices',
-        addServicesAPI = {
-          add: $resource(remoteBaseURL, {}, {
-                                              query: {
-                                                  method: 'POST',
-                                                  params: { post:true }
-                                              }
-                                            })
+    .factory('AddServicesAPI', ['$resource', function($resource) {
+        var remoteBaseURL = 'http://localhost:3040/microservices',
+            addServicesAPI = {
+                add: $resource(remoteBaseURL, {}, {
+                    query: {
+                        method: 'POST',
+                        params: { post: true }
+                    }
+                })
+            };
+
+        return addServicesAPI;
+    }])
+
+    .controller('AddController', ['$scope', '$rootScope', 'AddServicesAPI',
+                            function($scope, $rootScope, AddServicesAPI) {
+        $scope.newServiceForm = {};
+
+        $scope.submitNewServiceForm = function submitNewServiceForm() {
+            var newService = new AddServicesAPI.add($scope.newServiceForm);
+            newService.$save();
         };
 
-
-
-    return addServicesAPI;
-  }])
-
-  .controller('AddController', ['$scope', '$rootScope', 'AddServicesAPI', function($scope, $rootScope, AddServicesAPI) {
-    $scope.newServiceForm = {};
-
-    $scope.submitNewServiceForm = function submitNewServiceForm() {
-      var newService = new AddServicesAPI.add($scope.newServiceForm);
-      newService.$save();
-    };
-
-    $scope.clearNewServiceForm = function clearNewServiceForm() {
-      $scope.newServiceForm = {};
-    }
-  }]);
+        $scope.clearNewServiceForm = function clearNewServiceForm() {
+            $scope.newServiceForm = {};
+        }
+    }]);
 })();

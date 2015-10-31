@@ -1,22 +1,18 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  // higs app
-  angular.module('higgs', [
-    // global dependencies
-    'ngRoute',
-    'ngResource',
+    // higs app
+    angular.module('higgs', [
+                   // global dependencies
+                   'ngRoute',
+                   'ngResource',
 
-    // pages
-    'higgs.home',
-    'higgs.add'
-  ])
+                   // pages
+                   'higgs.home',
+                   'higgs.add'
+    ])
 
-  .config(['$routeProvider', function($routeProvider) {
-    $routeProvider.otherwise({ redirectTo: '/home' });
-  }])
+    .run(function(){
 
-  .run(function(){
-
-  });
+    });
 })();
