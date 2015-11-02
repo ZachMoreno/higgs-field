@@ -1,34 +1,28 @@
 (function() {
     'use strict';
 
-    angular.module('higgs.microservice', ['ng-route'])
+    angular.module('higgs.microservice', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider
-            .when('/microservice', {
-                abstract: true
-            })
-
-            .when('/microservice/:serviceID', {
-                templateUrl: 'pages/microservice/microservice.html',
-                resolve: {
-                    // available in controller
-                    service: function($routeProvider, GetServiceAPI) {
-                        var serviceID = $routeProvider.serviceID;
-                        console.log(serviceID);
-                        return GetServiceAPI.get.query({serviceID: serviceID}).$promise;
-                    }
-                },
-                controller: 'MicroserviceController'
-            });
+        $routeProvider.when('/microservices/:serviceID', {
+            templateUrl: 'pages/microservice/microservice.html',
+            controller: 'MicroserviceController',
+            resolve: {
+                // available in controller
+                service: function service(GetServiceAPI, $route) {
+                    var serviceID = $route.current.params.serviceID;
+                    return GetServiceAPI.get.query({serviceID: serviceID}).$promise;
+                }
+            }
+        });
     }])
 
     .factory('GetServiceAPI', ['$resource', function($resource) {
-        var remoteBaseURL  = 'http://localhost:3040/microservices/:serviceID',
+        var remoteBaseURL  = 'http://localhost:3040/microservices/get/:serviceID',
             getServiceAPI  = {
                 get: $resource(remoteBaseURL,
                     {
-                        serviceID: '@serviceID'
+                        id: '@serviceID'
                     }, {
                         query: {
                             method: 'GET',
@@ -45,7 +39,7 @@
     .controller('MicroserviceController', ['$scope', 'service',
                                     function($scope, service) {
         service.$promise.then(function(promisedService) {
-    		$scope.service = promisedService;
+    		$scope.service = promisedService[0];
     	});
     }])
 })();

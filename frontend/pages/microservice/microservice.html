@@ -1,1 +1,131 @@
-{{ service.microserviceName }}
+<div class="mdl-grid demo-content">
+    <!-- <h4 class="mdl-color-text--blue-grey-100 text-center">Add New Microservice</h4> -->
+
+    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+      <form>
+        <ul class="no-line-list">
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--2-col">
+                  Microservice Name
+              </div>
+
+              <div class="mdl-cell mdl-cell--10-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="service.microserviceName" />
+              </div>
+          </li>
+        </ul>
+      </form>
+
+      <h6 class="mdl-color-text--blue-grey-300 text-center">Database Connection</h6>
+
+      <form>
+        <ul class="no-line-list">
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--1-col">
+                  DB Type
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                <select class="full-width" ng-model="service.type">
+                  <option value="" selected></option>
+                  <option value="mysql">MySQL</option>
+                  <option value="oracle">Oracle</option>
+                  <option value="ms-sql">Microsoft SQL</option>
+                  <option value="sqlite">SQLite</option>
+                </select>
+              </div>
+
+              <div class="mdl-cell mdl-cell--1-col">
+                  DB Name
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="service.name" />
+              </div>
+          </li>
+
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--1-col">
+                  Host
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="service.host" />
+              </div>
+
+              <div class="mdl-cell mdl-cell--1-col">
+                  Port
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                  <input class="mdl-textfield__input" type="number" ng-model="service.port" />
+              </div>
+          </li>
+
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--1-col">
+                  Username
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="service.username" />
+              </div>
+
+              <div class="mdl-cell mdl-cell--1-col">
+                  Password
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                  <input class="mdl-textfield__input" type="password" ng-model="service.password" />
+              </div>
+          </li>
+        </ul>
+      </form>
+
+      <h6 class="mdl-color-text--blue-grey-300 text-center">Endpoints</h6>
+
+      <form>
+        <ul class="no-line-list">
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--2-col">
+                  HTTP Verb
+              </div>
+
+              <div class="mdl-cell mdl-cell--2-col">
+                  <select class="full-width" ng-model="service.httpVerb">
+                    <option value="" selected></option>
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="PATCH">PATCH</option>
+                    <option value="DELETE">DELETE</option>
+                  </select>
+              </div>
+
+              <div class="mdl-cell mdl-cell--2-col">
+                  Route
+              </div>
+
+              <div class="mdl-cell mdl-cell--6-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="service.route" />
+              </div>
+          </li>
+
+          <li class="mdl-grid">
+              <div class="mdl-cell mdl-cell--2-col">
+                  SQL
+              </div>
+
+              <div class="mdl-cell mdl-cell--10-col">
+                  <input class="mdl-textfield__input" type="text" ng-model="service.sql" />
+              </div>
+          </li>
+        </ul>
+      </form>
+
+      <div class="mdl-card__actions mdl-card--border mdl-color--blue-grey-800">
+          <a href="" ng-click="clearservice()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--pink-A200 mdl-color-text--blue-grey-800"><i class="material-icons">delete</i> Clear</a>
+          <a href="" ng-click="submitservice()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right  mdl-color--teal-A400 mdl-color-text--blue-grey-800"><i class="material-icons">save</i> Save</a>
+      </div>
+    </div>
+</div>

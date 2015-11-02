@@ -85,7 +85,7 @@
                 </header>
 
                 <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                    <a class="mdl-navigation__link" href="#/{{ service.microserviceName }}" ng-repeat="service in services">
+                    <a class="mdl-navigation__link" href="#/microservices/{{ service.id }}" ng-repeat="service in services">
                         <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>
                         {{ service.microserviceName }}
                     </a>
@@ -110,7 +110,7 @@
       <script src="node_modules/angular/angular.js"></script>
 
       <!-- 3rd party angular modules -->
-      <script src="node_modules/angular-route/angular-route.js"></script>
+	  		<script src="node_modules/angular-route/angular-route.js"></script>
 			<script src="node_modules/angular-resource/angular-resource.js"></script>
 
 			<!-- material design lite -->
@@ -122,9 +122,10 @@
 
         <!-- pages -->
         <script src="pages/home/home.js"></script>
-				<script src="pages/add/add.js"></script>
+			<script src="pages/add/add.js"></script>
+			<script src="pages/microservice/microservice.js"></script>
 
-				<!-- elements -->
+			<!-- elements -->
 
   </body>
 </html>

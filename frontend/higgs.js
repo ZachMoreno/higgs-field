@@ -9,7 +9,8 @@
 
                    // pages
                    'higgs.home',
-                   'higgs.add'
+                   'higgs.add',
+                   'higgs.microservice'
     ])
 
     .run(function(){
