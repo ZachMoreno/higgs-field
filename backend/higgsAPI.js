@@ -96,11 +96,22 @@
         })
 
         .get('/microservices', function (req, res, next) {
-            var sql = 'SELECT * FROM microservices a' +
-                      'JOIN dbConnections b ON' +
-                      'a.dbConnectionID = b.id' +
-                      'JOIN endPoints c ON' +
-                      'b.endPointID = c.id';
+            var sql =   'SELECT microservices.id, ' +
+                            'microservices.microserviceName, ' +
+                            'dbConnections.type, ' +
+                            'dbConnections.dbName, ' +
+                            'dbConnections.username, ' +
+                            'dbConnections.password, ' +
+                            'dbConnections.host, ' +
+                            'dbConnections.port, ' +
+                            'endPoints.route, ' +
+                            'endPoints.httpVerb, ' +
+                            'endPoints.sql ' +
+                        'FROM microservices ' +
+                        'JOIN dbConnections ' +
+                            'ON microservices.dbConnectionID = dbConnections.id ' +
+                        'JOIN endPoints ' +
+                            'ON dbConnections.endPointID = endPoints.id';
 
             higgsDB.all(sql, function(err, resultSetData) {
                 if(err !== null) {
@@ -180,10 +191,23 @@
             });
         })
 
-        .get('/microservices/delete/:id', function(req, res, next) {
-            var sql = "DELETE FROM microServices WHERE id='" + req.params.id + "'";
+        .get('/microservices/delete/:serviceID', function(req, res, next) {
+            var sql = "DELETE FROM microServices WHERE id='" + req.params.serviceID + "'";
 
             // remove DB object by id
+            higgsDB.run(sql, function(err) {
+                if(err !== null) {
+                    res.send(err);
+                } else {
+                    res.redirect('/microservices');
+                }
+            });
+        })
+
+        .get('/microservices/:serviceID', function(req, res, next) {
+            var sql = "SELECT * FROM microservices WHERE id = '" + req.params.serviceID + "'";
+
+            // select DB object by id
             higgsDB.run(sql, function(err) {
                 if(err !== null) {
                     res.send(err);
