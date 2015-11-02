@@ -40,7 +40,7 @@
               </div>
 
               <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.name" />
+                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.dbName" />
               </div>
           </li>
 
@@ -125,8 +125,8 @@
 
       <div class="mdl-card__actions mdl-card--border mdl-color--blue-grey-800">
           <a href="" ng-click="clearNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--pink-A200 mdl-color-text--blue-grey-800"><i class="material-icons">delete</i> Clear</a>
-          
-          <a href="" ng-click="submitNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right  mdl-color--teal-A400 mdl-color-text--blue-grey-800"><i class="material-icons">save</i> Save</a>
+
+          <a href="#/home" ng-click="submitNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right  mdl-color--teal-A400 mdl-color-text--blue-grey-800"><i class="material-icons">save</i> Save</a>
       </div>
     </div>
 </div>
