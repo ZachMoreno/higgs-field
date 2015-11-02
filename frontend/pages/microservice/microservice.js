@@ -36,10 +36,14 @@
         return getServiceAPI;
     }])
 
-    .controller('MicroserviceController', ['$scope', 'service',
-                                    function($scope, service) {
+    .controller('MicroserviceController', ['$scope', '$rootScope', 'service', 'GetServicesAPI',
+                                    function($scope, $rootScope, service, GetServicesAPI) {
         service.$promise.then(function(promisedService) {
     		$scope.service = promisedService[0];
     	});
+
+        GetServicesAPI.get.query().$promise.then(function(promisedServices) {
+            $rootScope.services = promisedServices;
+        });
     }])
 })();

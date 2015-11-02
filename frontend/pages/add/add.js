@@ -24,8 +24,8 @@
         return addServicesAPI;
     }])
 
-    .controller('AddController', ['$scope', '$rootScope', 'AddServicesAPI',
-                            function($scope, $rootScope, AddServicesAPI) {
+    .controller('AddController', ['$scope', '$rootScope', 'GetServicesAPI', 'AddServicesAPI',
+                            function($scope, $rootScope, GetServicesAPI, AddServicesAPI) {
         $scope.newServiceForm = {};
 
         $scope.submitNewServiceForm = function submitNewServiceForm() {
@@ -35,6 +35,10 @@
 
         $scope.clearNewServiceForm = function clearNewServiceForm() {
             $scope.newServiceForm = {};
-        }
+        };
+
+        GetServicesAPI.get.query().$promise.then(function(promisedServices) {
+            $rootScope.services = promisedServices;
+        });
     }]);
 })();
