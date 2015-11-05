@@ -9,8 +9,37 @@
                   Microservice Name
               </div>
 
-              <div class="mdl-cell mdl-cell--10-col">
+              <div class="mdl-cell mdl-cell--4-col">
                   <input class="mdl-textfield__input" type="text" ng-model="service.microserviceName" />
+              </div>
+
+              <div class="mdl-cell mdl-cell--1-col">
+                  Color
+              </div>
+
+              <div class="mdl-cell mdl-cell--5-col">
+                  <select class="full-width" ng-model="service.color">
+                      <option value="" selected></option>
+                      <option value="red">Red</option>
+                      <option value="pink">Pink</option>
+                      <option value="purple">Purple</option>
+                      <option value="deep-purple">Deep Purple</option>
+                      <option value="indigo">Indigo</option>
+                      <option value="blue">Blue</option>
+                      <option value="light-blue">Light Blue</option>
+                      <option value="cyan">Cyan</option>
+                      <option value="teal">Teal</option>
+                      <option value="green">Green</option>
+                      <option value="light-green">Light Green</option>
+                      <option value="lime">Lime</option>
+                      <option value="yellow">Yellow</option>
+                      <option value="amber">Amber</option>
+                      <option value="orange">Orange</option>
+                      <option value="deep-orange">Deep Orange</option>
+                      <option value="brown">Brown</option>
+                      <option value="grey">Grey</option>
+                      <option value="blue-grey">Blue Grey</option>
+                  </select>
               </div>
           </li>
         </ul>
@@ -82,51 +111,60 @@
         </ul>
       </form>
 
-      <h6 class="mdl-color-text--blue-grey-300 text-center">Endpoints</h6>
-
-      <form>
-        <ul class="no-line-list">
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--2-col">
-                  HTTP Verb
-              </div>
-
-              <div class="mdl-cell mdl-cell--2-col">
-                  <select class="full-width" ng-model="service.httpVerb">
-                    <option value="" selected></option>
-                    <option value="GET">GET</option>
-                    <option value="POST">POST</option>
-                    <option value="PUT">PUT</option>
-                    <option value="PATCH">PATCH</option>
-                    <option value="DELETE">DELETE</option>
-                  </select>
-              </div>
-
-              <div class="mdl-cell mdl-cell--2-col">
-                  Route
-              </div>
-
-              <div class="mdl-cell mdl-cell--6-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="service.route" />
-              </div>
-          </li>
-
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--2-col">
-                  SQL
-              </div>
-
-              <div class="mdl-cell mdl-cell--10-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="service.sql" />
-              </div>
-          </li>
-        </ul>
-      </form>
-
       <div class="mdl-card__actions mdl-card--border mdl-color--blue-grey-800">
           <a href="" ng-click="clearservice()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--pink-A200 mdl-color-text--blue-grey-800"><i class="material-icons">delete</i> Delete</a>
 
-          <a href="" ng-click="submitservice()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right  mdl-color--teal-A400 mdl-color-text--blue-grey-800"><i class="material-icons">save</i> Save</a>
+          <a href="" ng-click="submitservice()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right  mdl-color--teal-A400 mdl-color-text--blue-grey-800"><i class="material-icons">save</i> Update</a>
       </div>
     </div>
+
+    <h6 class="mdl-color-text--grey-100 text-center">Endpoints</h6>
+
+    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" ng-repeat="endPoint in endPoints">
+        <form>
+          <ul class="no-line-list">
+            <li class="mdl-grid">
+                <div class="mdl-cell mdl-cell--2-col">
+                    HTTP Verb
+                </div>
+
+                <div class="mdl-cell mdl-cell--2-col">
+                    <select class="full-width" ng-model="endPoint.httpVerb">
+                      <option value="" selected></option>
+                      <option value="GET">GET</option>
+                      <option value="POST">POST</option>
+                      <option value="PUT">PUT</option>
+                      <option value="PATCH">PATCH</option>
+                      <option value="DELETE">DELETE</option>
+                    </select>
+                </div>
+
+                <div class="mdl-cell mdl-cell--2-col">
+                    Route
+                </div>
+
+                <div class="mdl-cell mdl-cell--6-col">
+                    <input class="mdl-textfield__input" type="text" ng-model="endPoint.route" />
+                </div>
+            </li>
+
+            <li class="mdl-grid">
+                <div class="mdl-cell mdl-cell--2-col">
+                    SQL
+                </div>
+
+                <div class="mdl-cell mdl-cell--10-col">
+                    <input class="mdl-textfield__input" type="text" ng-model="endPoint.sql" />
+                </div>
+            </li>
+          </ul>
+        </form>
+
+        <div class="mdl-card__actions mdl-card--border mdl-color--blue-grey-800">
+            <a href="" ng-click="clearNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--pink-A200 mdl-color-text--blue-grey-800"><i class="material-icons">delete</i> Clear</a>
+
+            <a href="#/home" ng-click="submitNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right  mdl-color--teal-A400 mdl-color-text--blue-grey-800"><i class="material-icons">save</i> Save</a>
+        </div>
+    </div>
+
 </div>

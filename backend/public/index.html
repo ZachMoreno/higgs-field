@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Higs Field API</title>
+
+    <style>
+      html, body {
+        font-family: Arial;
+        color: grey;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      h4 {
+        margin: 0;
+      }
+
+      ul li {
+        list-style-type: none;
+        padding: 10px 0;
+      }
+
+      ul li ul li {
+
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Higgs Field API</h1>
+
+    <ul>
+        <li>
+            <a href="/microservices">
+                <h4>/microservices</h4>
+            </a>
+
+            <ul>
+                <li>
+                    <strong>GET</strong>
+                    <p>Returns all Microservices</p>
+
+                    <ul>
+                        <li>
+                            <a href="/microservices/add">
+                                <h4>/add</h4>
+                            </a>
+
+                            <ul>
+                                <li>
+                                    <strong>POST</strong>
+                                    <p>Adds a single Microservice</p>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="/microservices/get/2">
+                                <h4>/get/:id</h4>
+                            </a>
+
+                            <ul>
+                                <li>
+                                    <strong>GET</strong>
+                                    <p>Returns a single Microservice by ID</p>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="/microservices/delete/2">
+                                <h4>/delete/:id</h4>
+                            </a>
+
+                            <ul>
+                                <li>
+                                    <strong>GET</strong>
+                                    <p>Deletes a single Microservice by ID</p>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="/microservices/get/1/endpoints">
+                                <h4>/microservices/get/:id/endpoints</h4>
+                            </a>
+
+                            <ul>
+                                <li>
+                                    <strong>GET</strong>
+                                    <p>Returns all End Points by Microservice ID</p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="/dbconnections">
+                <h4>/dbconnections</h4>
+            </a>
+
+            <ul>
+                <li>
+                    <strong>GET</strong>
+                    <p>Returns all DB Connections</p>
+
+                    <ul>
+                        <li>
+                            <a href="/dbconnections/get/2">
+                                <h4>/get/:id</h4>
+                            </a>
+
+                            <ul>
+                                <li>
+                                    <strong>GET</strong>
+                                    <p>Returns a single DB Connection by ID</p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="/endpoints">
+                <h4>/endpoints</h4>
+            </a>
+
+            <ul>
+                <li>
+                    <strong>GET</strong>
+                    <p>Returns all End Points</p>
+
+                    <ul>
+                        <li>
+                            <a href="/dbconnections/add">
+                                <h4>/add</h4>
+                            </a>
+
+                            <ul>
+                                <li>
+                                    <strong>POST</strong>
+                                    <p>Adds a single End Point</p>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="/endpoints/get/2">
+                                <h4>/get/:id</h4>
+                            </a>
+
+                            <ul>
+                                <li>
+                                    <strong>GET</strong>
+                                    <p>Returns a single End Point by ID</p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+  </body>
+</html>

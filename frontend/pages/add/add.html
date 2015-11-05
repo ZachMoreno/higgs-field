@@ -1,132 +1,116 @@
 <div class="mdl-grid demo-content">
-    <!-- <h4 class="mdl-color-text--blue-grey-100 text-center">Add New Microservice</h4> -->
-
     <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-      <form>
-        <ul class="no-line-list">
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--2-col">
-                  Microservice Name
-              </div>
+        <form>
+            <ul class="no-line-list">
+                <li class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--2-col">
+                        Microservice Name
+                    </div>
 
-              <div class="mdl-cell mdl-cell--10-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.microserviceName" />
-              </div>
-          </li>
-        </ul>
-      </form>
+                    <div class="mdl-cell mdl-cell--4-col">
+                        <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.microserviceName" />
+                    </div>
 
-      <h6 class="mdl-color-text--blue-grey-300 text-center">Database Connection</h6>
+                    <div class="mdl-cell mdl-cell--1-col">
+                        Color
+                    </div>
 
-      <form>
-        <ul class="no-line-list">
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--1-col">
-                  DB Type
-              </div>
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <select class="full-width" ng-model="newServiceForm.color">
+                            <option value="" selected></option>
+                            <option value="red">Red</option>
+                            <option value="pink">Pink</option>
+                            <option value="purple">Purple</option>
+                            <option value="deep-purple">Deep Purple</option>
+                            <option value="indigo">Indigo</option>
+                            <option value="blue">Blue</option>
+                            <option value="light-blue">Light Blue</option>
+                            <option value="cyan">Cyan</option>
+                            <option value="teal">Teal</option>
+                            <option value="green">Green</option>
+                            <option value="light-green">Light Green</option>
+                            <option value="lime">Lime</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="amber">Amber</option>
+                            <option value="orange">Orange</option>
+                            <option value="deep-orange">Deep Orange</option>
+                            <option value="brown">Brown</option>
+                            <option value="grey">Grey</option>
+                            <option value="blue-grey">Blue Grey</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+        </form>
 
-              <div class="mdl-cell mdl-cell--5-col">
-                <select class="full-width" ng-model="newServiceForm.type">
-                  <option value="" selected></option>
-                  <option value="mysql">MySQL</option>
-                  <option value="oracle">Oracle</option>
-                  <option value="ms-sql">Microsoft SQL</option>
-                  <option value="sqlite">SQLite</option>
-                </select>
-              </div>
+        <form>
+            <ul class="no-line-list">
+                <li class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--1-col">
+                        DB Type
+                    </div>
 
-              <div class="mdl-cell mdl-cell--1-col">
-                  DB Name
-              </div>
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <select class="full-width" ng-model="newServiceForm.type">
+                            <option value="" selected></option>
+                            <option value="mysql">MySQL</option>
+                            <option value="oracle">Oracle</option>
+                            <option value="ms-sql">Microsoft SQL</option>
+                            <option value="sqlite">SQLite</option>
+                        </select>
+                    </div>
 
-              <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.dbName" />
-              </div>
-          </li>
+                    <div class="mdl-cell mdl-cell--1-col">
+                        DB Name
+                    </div>
 
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--1-col">
-                  Host
-              </div>
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.dbName" />
+                    </div>
+                </li>
 
-              <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.host" />
-              </div>
+                <li class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--1-col">
+                        Host
+                    </div>
 
-              <div class="mdl-cell mdl-cell--1-col">
-                  Port
-              </div>
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.host" />
+                    </div>
 
-              <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="number" ng-model="newServiceForm.port" />
-              </div>
-          </li>
+                    <div class="mdl-cell mdl-cell--1-col">
+                        Port
+                    </div>
 
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--1-col">
-                  Username
-              </div>
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <input class="mdl-textfield__input" type="number" ng-model="newServiceForm.port" />
+                    </div>
+                </li>
 
-              <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.username" />
-              </div>
+                <li class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--1-col">
+                        Username
+                    </div>
 
-              <div class="mdl-cell mdl-cell--1-col">
-                  Password
-              </div>
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.username" />
+                    </div>
 
-              <div class="mdl-cell mdl-cell--5-col">
-                  <input class="mdl-textfield__input" type="password" ng-model="newServiceForm.password" />
-              </div>
-          </li>
-        </ul>
-      </form>
+                    <div class="mdl-cell mdl-cell--1-col">
+                        Password
+                    </div>
 
-      <h6 class="mdl-color-text--blue-grey-300 text-center">Endpoints</h6>
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <input class="mdl-textfield__input" type="password" ng-model="newServiceForm.password" />
+                    </div>
+                </li>
+            </ul>
+        </form>
 
-      <form>
-        <ul class="no-line-list">
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--2-col">
-                  HTTP Verb
-              </div>
+        <div class="mdl-card__actions mdl-card--border mdl-color--blue-grey-800">
+            <a href="" ng-click="clearNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--pink-A200 mdl-color-text--blue-grey-800"><i class="material-icons">delete</i> Clear</a>
 
-              <div class="mdl-cell mdl-cell--2-col">
-                  <select class="full-width" ng-model="newServiceForm.httpVerb">
-                    <option value="" selected></option>
-                    <option value="GET">GET</option>
-                    <option value="POST">POST</option>
-                    <option value="PUT">PUT</option>
-                    <option value="PATCH">PATCH</option>
-                    <option value="DELETE">DELETE</option>
-                  </select>
-              </div>
-
-              <div class="mdl-cell mdl-cell--2-col">
-                  Route
-              </div>
-
-              <div class="mdl-cell mdl-cell--6-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.route" />
-              </div>
-          </li>
-
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--2-col">
-                  SQL
-              </div>
-
-              <div class="mdl-cell mdl-cell--10-col">
-                  <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.sql" />
-              </div>
-          </li>
-        </ul>
-      </form>
-
-      <div class="mdl-card__actions mdl-card--border mdl-color--blue-grey-800">
-          <a href="" ng-click="clearNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--pink-A200 mdl-color-text--blue-grey-800"><i class="material-icons">delete</i> Clear</a>
-
-          <a href="#/home" ng-click="submitNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right  mdl-color--teal-A400 mdl-color-text--blue-grey-800"><i class="material-icons">save</i> Save</a>
-      </div>
+            <a href="#/home" ng-click="submitNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right  mdl-color--teal-A400 mdl-color-text--blue-grey-800"><i class="material-icons">save</i> Save</a>
+        </div>
     </div>
 </div>

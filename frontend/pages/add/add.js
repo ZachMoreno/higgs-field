@@ -11,7 +11,7 @@
     }])
 
     .factory('AddServicesAPI', ['$resource', function($resource) {
-        var remoteBaseURL = 'http://localhost:3040/microservices',
+        var remoteBaseURL = 'http://localhost:3040/microservices/add',
             addServicesAPI = {
                 add: $resource(remoteBaseURL, {}, {
                     query: {
