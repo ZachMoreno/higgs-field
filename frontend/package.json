@@ -15,6 +15,7 @@
     "angular-material": "^0.11.2",
     "angular-resource": "^1.4.7",
     "angular-route": "^1.4.7",
+    "material-design-color-palette": "^1.1.0",
     "material-design-lite": "^1.0.5"
   }
 }

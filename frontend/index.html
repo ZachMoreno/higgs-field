@@ -36,96 +36,83 @@
 			<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Roboto:500,900,400italic,100,300,700,500italic,100italic,300italic,400' rel='stylesheet' type='text/css'>
 			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-			<!-- material design lite -->
-			<link rel="stylesheet" href="node_modules/material-design-lite/material.min.css">
-			<!-- <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.blue_grey-teal.min.css" /> -->
+			<!-- angular material -->
+            <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
 
-			<!-- coastal-publishing -->
+            <!-- material design color palette -->
+            <link rel="stylesheet" href="node_modules/material-design-color-palette/css/material-design-color-palette.css">
+
+			<!-- higgs -->
 			<link rel="stylesheet" href="higgs.css">
 	</head>
 
-	<body>
-        <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-            <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--teal-A200">
-                <div class="mdl-layout__header-row mdl-color--blue-grey-600">
-                    <a href="#/" alt="Home">
-						<span class="mdl-layout-title mdl-color-text--teal-A200"><i class="material-icons">graphic_eq</i> Higgs Field</span>
-					</a>
+	<body layout="column">
+        <!-- <md-toolbar>
+            <div class="md-toolbar-tools mdc-bg-blue-grey-900">
+                <md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button">
+                    <md-icon aria-label="Menu" class="material-icons">
+                        menu
+                    </md-icon>
+                </md-button>
+            </div>
+        </md-toolbar> -->
 
-                    <div class="mdl-layout-spacer"></div>
-
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                        <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-                            <i class="material-icons">search</i>
-                        </label>
-                        <div class="mdl-textfield__expandable-holder">
-                            <input class="mdl-textfield__input" type="text" id="search" ng-model="searchQuery" />
-                            <label class="mdl-textfield__label" for="search">Enter your query...</label>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-                <header class="demo-drawer-header">
-                    <img src="images/zach.jpg" class="demo-avatar">
-
-                    <div class="demo-avatar-dropdown">
-                        <span>xachoreno@gmail.com</span>
-
-                        <div class="mdl-layout-spacer"></div>
-                        <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-                            <i class="material-icons" role="presentation">arrow_drop_down</i>
-                            <span class="visuallyhidden">Accounts</span>
-                        </button>
-                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-                            <li class="mdl-menu__item">sign out</li>
-                        </ul>
-                    </div>
+        <div layout="row" flex>
+            <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2 mdc-bg-blue-grey-800" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+                <header class="nav-header">
+                    <a href="#/home" alt="Higs Field">
+                        <h1 class="text-center mdc-text-teal-A200 font-weight-500">
+                            Higgs Field
+                        </h1>
+                    </a>
                 </header>
 
-                <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                    <a class="mdl-navigation__link" href="#/microservice/{{ service.id }}" ng-repeat="service in services | filter:searchQuery">
-                        <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>
+                <a href="#/microservice/{{ service.id }}" ng-repeat="service in services | filter:searchQuery">
+                    <md-button class="mdc-text-blue-grey-200">
+                        <md-icon aria-label="Dashboard" class="text-center mdc-text-blue-grey-200 material-icons">
+                            dashboard
+                        </md-icon>
                         {{ service.microserviceName }}
-                    </a>
+                    </md-button>
+                </a>
 
-										<a class="mdl-navigation__link" href="#/add">
-                        <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">add</i>
+                <a href="#/add">
+                    <md-button class="mdc-text-blue-grey-200">
+                        <md-icon aria-label="Add" class="text-center mdc-text-blue-grey-200 material-icons">
+                            add
+                        </md-icon>
                         New Service
-                    </a>
+                    </md-button>
+                </a>
+            </md-sidenav>
 
-                    <!-- <div class="mdl-layout-spacer"></div>
-                    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a> -->
-                </nav>
-            </div> <!-- end .mdl-layout__drawer -->
-
-            <main ng-view  class="mdl-layout__content mdl-color--blue-grey-200">
+            <div layout="column" flex id="content" ng-view>
                 <!-- content -->
-            </main>
+            </div> <!-- end #content -->
+        </div> <!-- end .row -->
 
+        <!-- js -->
+          <!-- angularjs -->
+          <script src="node_modules/angular/angular.js"></script>
 
-    <!-- js -->
-      <!-- angularjs -->
-      <script src="node_modules/angular/angular.js"></script>
+          <!-- angular community modules -->
+    	  		<script src="node_modules/angular-route/angular-route.js"></script>
+    			<script src="node_modules/angular-resource/angular-resource.js"></script>
+                <script src="node_modules/angular-animate/angular-animate.js"></script>
+                <script src="node_modules/angular-aria/angular-aria.js"></script>
 
-      <!-- 3rd party angular modules -->
-	  		<script src="node_modules/angular-route/angular-route.js"></script>
-			<script src="node_modules/angular-resource/angular-resource.js"></script>
+    			<!-- angular material -->
+    			<script src="node_modules/angular-material/angular-material.js"></script>
 
-			<!-- material design lite -->
-			<script src="node_modules/material-design-lite/material.min.js"></script>
+          <!-- higs modules -->
+            <!-- app -->
+            <script src="higgs.js"></script>
 
-      <!-- higs modules -->
-        <!-- app -->
-        <script src="higgs.js"></script>
+            <!-- pages -->
+            <script src="pages/home/home.js"></script>
+    			<script src="pages/add/add.js"></script>
+    			<script src="pages/microservice/microservice.js"></script>
 
-        <!-- pages -->
-        <script src="pages/home/home.js"></script>
-			<script src="pages/add/add.js"></script>
-			<script src="pages/microservice/microservice.js"></script>
-
-			<!-- elements -->
-
-  </body>
+    			<!-- elements -->
+    </body>
 </html>

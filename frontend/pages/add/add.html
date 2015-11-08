@@ -1,116 +1,130 @@
-<div class="mdl-grid demo-content">
-    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-        <form>
-            <ul class="no-line-list">
-                <li class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--2-col">
-                        Microservice Name
-                    </div>
+<md-content layout="column" flex class="md-padding mdc-bg-blue-grey-200">
+    <div layout="row" layout-wrap>
+        <md-card flex="50">
+            <md-card-content>
+                <form>
+                    <div layout="row">
+                        <div flex="50">
+                            <md-input-container>
+                                <label>Microservice Name</label>
 
-                    <div class="mdl-cell mdl-cell--4-col">
-                        <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.microserviceName" />
-                    </div>
+                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" ng-model="newServiceForm.microserviceName" autofocus />
+                            </md-input-container>
+                        </div> <!-- end flex 50 -->
 
-                    <div class="mdl-cell mdl-cell--1-col">
-                        Color
-                    </div>
+                        <div flex="50">
+                            <md-input-container>
+                                <label>Database Name</label>
 
-                    <div class="mdl-cell mdl-cell--5-col">
-                        <select class="full-width" ng-model="newServiceForm.color">
-                            <option value="" selected></option>
-                            <option value="red">Red</option>
-                            <option value="pink">Pink</option>
-                            <option value="purple">Purple</option>
-                            <option value="deep-purple">Deep Purple</option>
-                            <option value="indigo">Indigo</option>
-                            <option value="blue">Blue</option>
-                            <option value="light-blue">Light Blue</option>
-                            <option value="cyan">Cyan</option>
-                            <option value="teal">Teal</option>
-                            <option value="green">Green</option>
-                            <option value="light-green">Light Green</option>
-                            <option value="lime">Lime</option>
-                            <option value="yellow">Yellow</option>
-                            <option value="amber">Amber</option>
-                            <option value="orange">Orange</option>
-                            <option value="deep-orange">Deep Orange</option>
-                            <option value="brown">Brown</option>
-                            <option value="grey">Grey</option>
-                            <option value="blue-grey">Blue Grey</option>
-                        </select>
-                    </div>
-                </li>
-            </ul>
-        </form>
+                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" ng-model="newServiceForm.dbName" />
+                            </md-input-container>
+                        </div> <!-- end flex 50 -->
+                    </div> <!-- end row -->
 
-        <form>
-            <ul class="no-line-list">
-                <li class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--1-col">
-                        DB Type
-                    </div>
+                    <div layout="row">
+                        <div flex="50">
+                            <md-input-container>
+                                <label>Type</label>
 
-                    <div class="mdl-cell mdl-cell--5-col">
-                        <select class="full-width" ng-model="newServiceForm.type">
-                            <option value="" selected></option>
-                            <option value="mysql">MySQL</option>
-                            <option value="oracle">Oracle</option>
-                            <option value="ms-sql">Microsoft SQL</option>
-                            <option value="sqlite">SQLite</option>
-                        </select>
-                    </div>
+                                <md-select class="mdc-text-{{ newServiceForm.color }}-900" ng-model="newServiceForm.type">
+                                    <md-option value="mysql">MySQL</md-option>
+                                    <md-option value="oracle">Oracle</md-option>
+                                    <md-option value="ms-sql">Microsoft SQL</md-option>
+                                    <md-option value="sqlite">SQLite</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div> <!-- end flex 50 -->
 
-                    <div class="mdl-cell mdl-cell--1-col">
-                        DB Name
-                    </div>
+                        <div flex="50">
+                            <md-input-container>
+                                <label>Color</label>
 
-                    <div class="mdl-cell mdl-cell--5-col">
-                        <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.dbName" />
-                    </div>
-                </li>
+                                <md-select class="mdc-text-{{ newServiceForm.color }}-900" ng-model="newServiceForm.color">
+                                    <md-option value="red">Red</md-option>
+                                    <md-option value="pink">Pink</md-option>
+                                    <md-option value="purple">Purple</md-option>
+                                    <md-option value="deep-purple">Deep Purple</md-option>
+                                    <md-option value="indigo">Indigo</md-option>
+                                    <md-option value="blue">Blue</md-option>
+                                    <md-option value="light-blue">Light Blue</md-option>
+                                    <md-option value="cyan">Cyan</md-option>
+                                    <md-option value="teal">Teal</md-option>
+                                    <md-option value="green">Green</md-option>
+                                    <md-option value="light-green">Light Green</md-option>
+                                    <md-option value="lime">Lime</md-option>
+                                    <md-option value="yellow">Yellow</md-option>
+                                    <md-option value="amber">Amber</md-option>
+                                    <md-option value="orange">Orange</md-option>
+                                    <md-option value="deep-orange">Deep Orange</md-option>
+                                    <md-option value="brown">Brown</md-option>
+                                    <md-option value="grey">Grey</md-option>
+                                    <md-option value="blue-grey">Blue Grey</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div> <!-- end flex 50 -->
+                    </div> <!-- end row -->
 
-                <li class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--1-col">
-                        Host
-                    </div>
+                    <div layout="row">
+                        <div flex="75">
+                            <md-input-container>
+                                <label>Host</label>
 
-                    <div class="mdl-cell mdl-cell--5-col">
-                        <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.host" />
-                    </div>
+                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" ng-model="newServiceForm.host" />
+                            </md-input-container>
+                        </div> <!-- end flex -->
 
-                    <div class="mdl-cell mdl-cell--1-col">
-                        Port
-                    </div>
+                        <div flex>
+                            <md-input-container>
+                                <label>Port</label>
 
-                    <div class="mdl-cell mdl-cell--5-col">
-                        <input class="mdl-textfield__input" type="number" ng-model="newServiceForm.port" />
-                    </div>
-                </li>
+                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="number" ng-model="newServiceForm.port" />
+                            </md-input-container>
+                        </div> <!-- end flex -->
+                    </div> <!-- end row -->
 
-                <li class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--1-col">
-                        Username
-                    </div>
+                    <div layout="row">
+                        <div flex>
+                            <md-input-container>
+                                <label>Username</label>
 
-                    <div class="mdl-cell mdl-cell--5-col">
-                        <input class="mdl-textfield__input" type="text" ng-model="newServiceForm.username" />
-                    </div>
+                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" ng-model="newServiceForm.username" />
+                            </md-input-container>
+                        </div> <!-- end flex -->
 
-                    <div class="mdl-cell mdl-cell--1-col">
-                        Password
-                    </div>
+                        <div flex>
+                            <md-input-container>
+                                <label>Password</label>
 
-                    <div class="mdl-cell mdl-cell--5-col">
-                        <input class="mdl-textfield__input" type="password" ng-model="newServiceForm.password" />
-                    </div>
-                </li>
-            </ul>
-        </form>
+                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="password" ng-model="newServiceForm.password" />
+                            </md-input-container>
+                        </div> <!-- end flex -->
+                    </div> <!-- end row -->
+                </form>
+            </md-card-content>
 
-        <div class="mdl-card__actions mdl-card--border mdl-color--blue-grey-800">
-            <a href="" ng-click="clearNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--pink-A200 mdl-color-text--blue-grey-800"><i class="material-icons">delete</i> Clear</a>
+            <div class="mdc-bg-{{ newServiceForm.color || 'blue-grey' }}-900">
+                <md-card-actions layout="row" layout-align="space-between center">
+                    <a href="" ng-click="clearNewServiceForm()">
+                        <md-button class="mdc-text-grey-100" flex="50">
+                            <md-icon aria-label="Delete" class="text-center mdc-text-grey-100 material-icons">
+                                close
+                            </md-icon>
 
-            <a href="#/home" ng-click="submitNewServiceForm()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right  mdl-color--teal-A400 mdl-color-text--blue-grey-800"><i class="material-icons">save</i> Save</a>
-        </div>
-    </div>
-</div>
+                            Clear
+                        </md-button>
+                    </a>
+
+                    <a href="" ng-click="submitNewServiceForm()">
+                        <md-button class="mdc-text-grey-100" flex="50">
+                            <md-icon aria-label="Save" class="text-center mdc-text-grey-100 material-icons">
+                                check
+                            </md-icon>
+
+                            Save
+                        </md-button>
+                    </a>
+                </md-card-actions>
+            </div> <!-- end .mdc-bg-{{ service.color }}-900 -->
+        </md-card> <!-- ednd flex -->
+    </div> <!-- end row -->
+</md-content> <!-- end column -->

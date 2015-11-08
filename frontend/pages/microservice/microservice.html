@@ -1,135 +1,132 @@
-<div class="mdl-grid demo-content">
-    <!-- <h4 class="mdl-color-text--blue-grey-100 text-center">Add New Microservice</h4> -->
+<md-content layout="column" flex class="md-padding mdc-bg-blue-grey-200">
+    <div layout="row" layout-wrap>
+        <md-card flex="50">
+            <md-card-content>
+                <form>
+                    <div layout="row">
+                        <div flex="50">
+                            <md-input-container>
+                                <label>Microservice Name</label>
 
-    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--6-col-desktop mdl-color--grey-100">
-      <form>
-        <ul class="no-line-list">
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--4-col mdl-color-text--blue-grey-800">
-                  Microservice Name
-              </div>
+                                <input class="mdc-text-{{ service.color }}-900" type="text" ng-model="service.microserviceName" />
+                            </md-input-container>
+                        </div> <!-- end flex 50 -->
 
-              <div class="mdl-cell mdl-cell--8-col">
-                  <input class="mdl-textfield__input mdl-color-text--{{ service.color }}-900" type="text" ng-model="service.microserviceName" />
-              </div>
-          </li>
+                        <div flex="50">
+                            <md-input-container>
+                                <label>Database Name</label>
 
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--2-col mdl-color-text--blue-grey-800">
-                  Color
-              </div>
+                                <input class="mdc-text-{{ service.color }}-900" type="text" ng-model="service.dbName" />
+                            </md-input-container>
+                        </div> <!-- end flex 50 -->
+                    </div> <!-- end row -->
 
-              <div class="mdl-cell mdl-cell--10-col">
-                  <select class="full-width mdl-color-text--{{ service.color }}-900" ng-model="service.color">
-                      <option value="" selected></option>
-                      <option value="red">Red</option>
-                      <option value="pink">Pink</option>
-                      <option value="purple">Purple</option>
-                      <option value="deep-purple">Deep Purple</option>
-                      <option value="indigo">Indigo</option>
-                      <option value="blue">Blue</option>
-                      <option value="light-blue">Light Blue</option>
-                      <option value="cyan">Cyan</option>
-                      <option value="teal">Teal</option>
-                      <option value="green">Green</option>
-                      <option value="light-green">Light Green</option>
-                      <option value="lime">Lime</option>
-                      <option value="yellow">Yellow</option>
-                      <option value="amber">Amber</option>
-                      <option value="orange">Orange</option>
-                      <option value="deep-orange">Deep Orange</option>
-                      <option value="brown">Brown</option>
-                      <option value="grey">Grey</option>
-                      <option value="blue-grey">Blue Grey</option>
-                  </select>
-              </div>
-          </li>
+                    <div layout="row">
+                        <div flex="50">
+                            <md-input-container>
+                                <label>Type</label>
 
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--2-col mdl-color-text--blue-grey-800">
-                  DB Type
-              </div>
+                                <md-select class="mdc-text-{{ service.color }}-900" ng-model="service.type">
+                                    <md-option value="mysql">MySQL</md-option>
+                                    <md-option value="oracle">Oracle</md-option>
+                                    <md-option value="ms-sql">Microsoft SQL</md-option>
+                                    <md-option value="sqlite">SQLite</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div> <!-- end flex 50 -->
 
-              <div class="mdl-cell mdl-cell--10-col">
-                <select class="full-width mdl-color-text--{{ service.color }}-900" ng-model="service.type">
-                  <option value="" selected></option>
-                  <option value="mysql">MySQL</option>
-                  <option value="oracle">Oracle</option>
-                  <option value="ms-sql">Microsoft SQL</option>
-                  <option value="sqlite">SQLite</option>
-                </select>
-              </div>
+                        <div flex="50">
+                            <md-input-container>
+                                <label>Color</label>
 
-            <li class="mdl-grid">
-                  <div class="mdl-cell mdl-cell--2-col mdl-color-text--blue-grey-800">
-                      DB Name
-                  </div>
+                                <md-select class="mdc-text-{{ service.color }}-900" ng-model="service.color">
+                                    <md-option value="red">Red</md-option>
+                                    <md-option value="pink">Pink</md-option>
+                                    <md-option value="purple">Purple</md-option>
+                                    <md-option value="deep-purple">Deep Purple</md-option>
+                                    <md-option value="indigo">Indigo</md-option>
+                                    <md-option value="blue">Blue</md-option>
+                                    <md-option value="light-blue">Light Blue</md-option>
+                                    <md-option value="cyan">Cyan</md-option>
+                                    <md-option value="teal">Teal</md-option>
+                                    <md-option value="green">Green</md-option>
+                                    <md-option value="light-green">Light Green</md-option>
+                                    <md-option value="lime">Lime</md-option>
+                                    <md-option value="yellow">Yellow</md-option>
+                                    <md-option value="amber">Amber</md-option>
+                                    <md-option value="orange">Orange</md-option>
+                                    <md-option value="deep-orange">Deep Orange</md-option>
+                                    <md-option value="brown">Brown</md-option>
+                                    <md-option value="grey">Grey</md-option>
+                                    <md-option value="blue-grey">Blue Grey</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div> <!-- end flex 50 -->
+                    </div> <!-- end row -->
 
-                  <div class="mdl-cell mdl-cell--10-col">
-                      <input class="mdl-textfield__input mdl-color-text--{{ service.color }}-900" type="text" ng-model="service.dbName" />
-                  </div>
-            </li>
+                    <div layout="row">
+                        <div flex="75">
+                            <md-input-container>
+                                <label>Host</label>
 
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--2-col mdl-color-text--blue-grey-800">
-                  Host
-              </div>
+                                <input class="mdc-text-{{ service.color }}-900" type="text" ng-model="service.host" />
+                            </md-input-container>
+                        </div> <!-- end flex -->
 
-              <div class="mdl-cell mdl-cell--6-col">
-                  <input class="mdl-textfield__input mdl-color-text--{{ service.color }}-900" type="text" ng-model="service.host" />
-              </div>
+                        <div flex>
+                            <md-input-container>
+                                <label>Port</label>
 
-              <div class="mdl-cell mdl-cell--1-col mdl-color-text--blue-grey-800">
-                  Port
-              </div>
+                                <input class="mdc-text-{{ service.color }}-900" type="number" ng-model="service.port" />
+                            </md-input-container>
+                        </div> <!-- end flex -->
+                    </div> <!-- end row -->
 
-              <div class="mdl-cell mdl-cell--3-col">
-                  <input class="mdl-textfield__input mdl-color-text--{{ service.color }}-900" type="number" ng-model="service.port" />
-              </div>
-          </li>
+                    <div layout="row">
+                        <div flex>
+                            <md-input-container>
+                                <label>Username</label>
 
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--2-col mdl-color-text--blue-grey-800">
-                  Username
-              </div>
+                                <input class="mdc-text-{{ service.color }}-900" type="text" ng-model="service.username" />
+                            </md-input-container>
+                        </div> <!-- end flex -->
 
-              <div class="mdl-cell mdl-cell--10-col">
-                  <input class="mdl-textfield__input mdl-color-text--{{ service.color }}-900" type="text" ng-model="service.username" />
-              </div>
-          </li>
+                        <div flex>
+                            <md-input-container>
+                                <label>Password</label>
 
-          <li class="mdl-grid">
-              <div class="mdl-cell mdl-cell--2-col mdl-color-text--blue-grey-800">
-                  Password
-              </div>
+                                <input class="mdc-text-{{ service.color }}-900" type="password" ng-model="service.password" />
+                            </md-input-container>
+                        </div> <!-- end flex -->
+                    </div> <!-- end row -->
+                </form>
+            </md-card-content>
 
-              <div class="mdl-cell mdl-cell--10-col">
-                  <input class="mdl-textfield__input mdl-color-text--{{ service.color }}-900" type="password" ng-model="service.password" />
-              </div>
-          </li>
-        </ul>
-      </form>
+            <div class="mdc-bg-{{ service.color || 'grey-blue' }}-900">
+                <md-card-actions layout="row" layout-align="space-between center">
+                    <md-button ng-click="deleteService()" class="mdc-text-grey-100">
+                        <md-icon aria-label="Delete" class="text-center mdc-text-grey-100 material-icons">
+                            close
+                        </md-icon>
 
-      <div class="mdl-card__actions mdl-card--border mdl-color--{{ service.color }}-800">
-          <a href="" ng-click="deleteService()" class="mdl-button mdl-js-button mdl-js-ripple-effect  mdl-color-text--grey-100"><i class="material-icons">delete</i> Delete</a>
+                        Delete
+                    </md-button>
 
-          <a href="" ng-click="updateService()" class="mdl-button mdl-js-button mdl-js-ripple-effect align-right mdl-color-text--grey-100"><i class="material-icons">save</i> Update</a>
-      </div>
-    </div>
+                    <md-button ng-click="updateService()" class="mdc-text-grey-100">
+                        <md-icon aria-label="Save" class="text-center mdc-text-grey-100 material-icons">
+                            check
+                        </md-icon>
 
-    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--6-col-desktop mdl-color--{{ service.color }}-700" ng-repeat="endPoint in endPoints">
-        <div class="mld-grid">
-            <div class="mld-cell mdl-cell--4-col">
-                <h6>{{ endPoint.route }}</h6>
-            </div> <!-- end .mld-cell--4-col -->
+                        Update
+                    </md-button>
+                </md-card-actions>
+            </div> <!-- end .mdc-bg-{{ service.color }}-900 -->
+        </md-card> <!-- end flex 50 -->
 
-            <div class="mld-cell mdl-cell--4-col">
-                <h6>{{ endPoint.httpVerb }}</h6>
-            </div> <!-- end .mld-cell--4-col -->
+        <md-card flex="50">
+            <md-card-content>
 
-            <div class="mld-cell mdl-cell--4-col">
-                <h6>{{ endPoint.sql }}</h6>
-            </div> <!-- end .mld-cell--4-col -->
-        </div> <!-- end .mdl-grid -->
-    </div> <!-- end .mdl-card -->
-</div>
+            </md-card-content>
+        </mdl-card> <!-- end flex 50 -->
+    </div> <!-- end row -->
+</md-content> <!-- end column -->
