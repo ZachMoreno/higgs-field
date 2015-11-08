@@ -1,16 +1,16 @@
 (function() {
     'use strict';
 
-    var express  = require('express'),
-        router   = express.Router(),
-        parser   = require('body-parser'),
-        port     = '3040',
-        hostIP   = 'localhost',
-        mysql    = require('mysql'),
-        sqlite   = require('sqlite3').verbose(),
-        trans    = require('sqlite3-transactions').TransactionDatabase,
-        higgsDB  = new trans(new sqlite.Database('higgs.db')),
-        higgsAPI = express();
+    var express     = require('express'),
+        router      = express.Router(),
+        parser      = require('body-parser'),
+        port        = '3040',
+        hostIP      = 'localhost',
+        sqlite      = require('sqlite3').verbose(),
+        trans       = require('sqlite3-transactions').TransactionDatabase,
+        higgsDB     = new trans(new sqlite.Database('higgs.db')),
+        higgsAPI    = express(),
+        dbConnector = require('./dbConnector.js');
 
     // http://enable-cors.org/server_expressjs.html
     higgsAPI.all('*', function(req, res, next) {
@@ -304,6 +304,51 @@
                     }
                 });
             });
+        })
+
+        .post('/microservices/update', function(req, res, next) {
+            var microserviceName       = req.body.microserviceName,
+                serviceID              = req.body.id,
+                color                  = req.body.color,
+                type                   = req.body.type,
+                dbName                 = req.body.dbName,
+                username               = req.body.username,
+                password               = req.body.password,
+                host                   = req.body.host,
+                port                   = req.body.port;
+
+            higgsDB.beginTransaction(function(err, trans) {
+                trans.run('UPDATE microservices ' +
+                          'SET color            = "' + color            + '", ' +
+                              'microserviceName = "' + microserviceName + '" ' +
+                          'WHERE id = ' + serviceID);
+
+                trans.run('UPDATE dbConnections ' +
+                          'SET type     = "' + type     + '", ' +
+                              'dbName   = "' + dbName   + '", ' +
+                              'username = "' + username + '", ' +
+                              'password = "' + password + '", ' +
+                              'host     = "' + host     + '", ' +
+                              'port     = "' + port     + '" ' +
+                          'WHERE microserviceID = ' + serviceID);
+
+                trans.commit(function(err) {
+                    if(err) {
+                        // auto trans.rollback() runs on error
+                        console.log(microserviceName + " microservice (id : " + serviceID + ") failed to update", err);
+                    } else {
+                        console.log(microserviceName + " microservice (id : " + serviceID + ") was updated successfully");
+                        res.redirect('/microservices');
+                    }
+                });
+            });
+        })
+
+        .post('/dbconnections/connect', function(req, res, next) {
+            var dbID         = req.body.dbID,
+                dbConnection = dbConnector.getSingleDB(dbID);
+
+            console.log(dbConnection);
         });
 
 

@@ -18,8 +18,7 @@
                 get: $resource(remoteBaseURL, {}, {
                     query: {
                         method: 'GET',
-                        isArray: true,
-                        cache: true
+                        isArray: true
                     }
                 })
             };

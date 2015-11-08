@@ -16,7 +16,9 @@
                 add: $resource(remoteBaseURL, {}, {
                     query: {
                         method: 'POST',
-                        params: { post: true }
+                        params: {
+                            post: true
+                        }
                     }
                 })
             };
@@ -24,19 +26,21 @@
         return addServicesAPI;
     }])
 
-    .controller('AddController', ['$scope', '$rootScope', 'GetServicesAPI', 'AddServicesAPI',
-                            function($scope, $rootScope, GetServicesAPI, AddServicesAPI) {
+    .controller('AddController', ['$scope', '$rootScope', '$location', 'GetServicesAPI', 'AddServicesAPI',
+                            function($scope, $rootScope, $locations, GetServicesAPI, AddServicesAPI) {
         $scope.newServiceForm = {};
 
         $scope.submitNewServiceForm = function submitNewServiceForm() {
             var newService = new AddServicesAPI.add($scope.newServiceForm);
             newService.$save();
+            $location.path('/home');
         };
 
         $scope.clearNewServiceForm = function clearNewServiceForm() {
             $scope.newServiceForm = {};
         };
 
+        // sidebar
         GetServicesAPI.get.query().$promise.then(function(promisedServices) {
             $rootScope.services = promisedServices;
         });

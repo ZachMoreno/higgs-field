@@ -290,6 +290,11 @@ ul.lined-list li:last-of-type {
 input,
 select {
     font-weight: bold;
+    background-color: transparent;
+    border: none;
+    font-size: inherit;
+    border-bottom: 1px solid #D8D8D8;
+    border-radius: 0px;
 }
 
 .full-width {

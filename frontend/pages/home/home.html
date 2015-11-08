@@ -7,9 +7,9 @@
         </a>
 
         <div class="mdl-card__actions mdl-card--border mdl-color--grey-100">
-            <span class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--{{ service.color }}-900"><i class="material-icons">power</i> Disconnected</span>
+            <span class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--{{ service.color }}-900"><i class="material-icons">power</i> {{ service.dbConnectionStatus || "Disconnected" }}</span>
 
-            <span class="mdl-button mdl-js-button mdl-js-ripple-effect align-right mdl-color-text--{{ service.color }}-900"><i class="material-icons">swap_horiz</i> Offline</span>
+            <span class="mdl-button mdl-js-button mdl-js-ripple-effect align-right mdl-color-text--{{ service.color }}-900"><i class="material-icons">swap_horiz</i> {{ service.endPointStatus || "Offline" }}</span>
         </div>
     </div>
 </div>
