@@ -93,7 +93,23 @@
         return updateServiceAPI;
     }])
 
-    .controller('MicroserviceController', ['$scope', '$rootScope', '$location', '$route', 'GetServicesAPI', 'DeleteServiceAPI', 'UpdateServiceAPI', 'service', 'endPoints', function($scope, $rootScope, $location, $route, GetServicesAPI, DeleteServiceAPI, UpdateServiceAPI, service, endPoints) {
+    .factory('AddEndPointAPI', ['$resource', function($resource) {
+        var remoteBaseURL = 'http://localhost:3040/endpoints/add',
+            addEndPointAPI = {
+                add: $resource(remoteBaseURL, {}, {
+                    query: {
+                        method: 'POST',
+                        params: {
+                            post: true
+                        }
+                    }
+                })
+            };
+
+        return addEndPointAPI;
+    }])
+
+    .controller('MicroserviceController', ['$scope', '$rootScope', '$location', '$route', 'GetServicesAPI', 'DeleteServiceAPI', 'UpdateServiceAPI', 'AddEndPointAPI', 'service', 'endPoints', function($scope, $rootScope, $location, $route, GetServicesAPI, DeleteServiceAPI, UpdateServiceAPI, AddEndPointAPI, service, endPoints) {
         $scope.deleteService = function deleteService() {
             var serviceID = $route.current.params.serviceID;
             DeleteServiceAPI.delete.query({serviceID: serviceID}).$promise.then(function() {
@@ -106,6 +122,25 @@
             updateService.$save();
             $location.path('/home');
         };
+
+        $scope.newEndPointForm = {
+            'id': service.id
+        };
+
+        $scope.newEndPointForm = {};
+
+        $scope.submitNewEndPointForm = function() {
+            var newEndPoint = new AddEndPointAPI.add($scope.newEndPointForm);
+            newEndPoint.$save();
+
+            endPoints.$promise.then(function(promisedEndPoints) {
+                $scope.endPoints = promisedEndPoints;
+            });
+        }
+
+        $scope.clearNewEndPointForm = function clearNewEndPointForm() {
+            $scope.newEndPointForm = {};
+        }
 
         service.$promise.then(function(promisedService) {
     		$scope.service = promisedService[0];

@@ -1,27 +1,29 @@
 <md-content layout="column" flex class="md-padding mdc-bg-blue-grey-200">
     <div layout="row" layout-wrap>
         <md-card ng-repeat="service in services | filter:searchQuery" flex="30">
-            <md-card-content class="mdc-bg-{{ service.color }}-700">
+            <md-card-content class="mdc-bg-{{ service.color }}-800">
                 <a ng-href="#/microservice/{{ service.id }}">
                     <h1 class="mdc-text-{{ service.color }}-100 font-weight-300">{{ service.microserviceName }}</h1>
                 </a>
             </md-card-content>
 
-            <md-card-actions layout="row" layout-align="space-between center">
-                <md-button class="mdc-text-{{ service.color }}-900" flex="50">
-                    <md-icon aria-label="Power" class="text-center mdc-text-{{ service.color }}-900 material-icons">
-                        power
-                    </md-icon>
-                    {{ service.dbConnectionStatus || "Disconnected" }}
-                </md-button>
+            <div class="mdc-bg-{{ service.color }}-100">
+                <md-card-actions layout="row" layout-align="space-between center">
+                    <md-button class="mdc-text-{{ service.color }}-900" flex="50">
+                        <md-icon aria-label="Power" class="text-center mdc-text-{{ service.color }}-900 material-icons">
+                            power
+                        </md-icon>
+                        {{ service.dbConnectionStatus || "Disconnected" }}
+                    </md-button>
 
-                <md-button class="mdc-text-{{ service.color }}-900" flex="50">
-                    <md-icon aria-label="Network" class="text-center mdc-text-{{ service.color }}-900 material-icons">
-                        swap_horiz
-                    </md-icon>
-                    {{ service.endPointStatus || "Offline" }}
-                </md-button>
-          </md-card-actions>
+                    <md-button class="mdc-text-{{ service.color }}-900" flex="50">
+                        <md-icon aria-label="Network" class="text-center mdc-text-{{ service.color }}-900 material-icons">
+                            swap_horiz
+                        </md-icon>
+                        {{ service.endPointStatus || "Offline" }}
+                    </md-button>
+                </md-card-actions>
+            </div> <!-- end .mdc-text-{{ service.color }}-100 -->
       </md-card> <!-- end flex -->
     </div> <!-- end row -->
 </md-content>

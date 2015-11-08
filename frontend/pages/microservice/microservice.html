@@ -1,6 +1,6 @@
-<md-content layout="column" flex class="md-padding mdc-bg-blue-grey-200">
-    <div layout="row" layout-wrap>
-        <md-card flex="50">
+<md-content layout="row" flex class="md-padding mdc-bg-blue-grey-200">
+    <div flex>
+        <md-card>
             <md-card-content>
                 <form>
                     <div layout="row">
@@ -121,12 +121,91 @@
                     </md-button>
                 </md-card-actions>
             </div> <!-- end .mdc-bg-{{ service.color }}-900 -->
-        </md-card> <!-- end flex 50 -->
-
-        <md-card flex="50">
-            <md-card-content>
-
-            </md-card-content>
-        </mdl-card> <!-- end flex 50 -->
+        </md-card>
     </div> <!-- end row -->
+
+    <div layout="column" flex>
+        <md-card layout="column">
+            <md-card-content>
+                <form>
+                    <div layout="row">
+                        <div flex="45">
+                            <md-input-container>
+                                <label>HTTP Verb</label>
+
+                                <md-select class="mdc-text-{{ service.color }}-900" ng-model="newEndPointForm.httpVerb">
+                                    <md-option value="GET">GET</md-option>
+                                    <md-option value="POST">POST</md-option>
+                                    <md-option value="PUT">PUT</md-option>
+                                    <md-option value="DELETE">DELETE</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div> <!-- end flex 45 -->
+
+                        <div flex>
+                            <md-input-container>
+                                <label>Route</label>
+
+                                <input class="mdc-text-{{ service.color }}-900" type="text" ng-model="newEndPointForm.route" />
+                            </md-input-container>
+                        </div> <!-- end flex 50 -->
+                    </div> <!-- end row -->
+
+                    <div layout="row">
+                        <md-input-container flex="100">
+                            <label>SQL</label>
+
+                            <input class="mdc-text-{{ service.color }}-900" type="text" ng-model="newEndPointForm.sql" />
+                        </md-input-container>
+                    </div> <!-- end row -->
+                </form>
+            </md-card-content>
+
+            <div class="mdc-bg-{{ service.color || 'grey-blue' }}-900">
+                <md-card-actions layout="row" layout-align="space-between center">
+                    <md-button ng-click="clearNewEndPointForm()" class="mdc-text-grey-100">
+                        <md-icon aria-label="Delete" class="text-center mdc-text-grey-100 material-icons">
+                            close
+                        </md-icon>
+
+                        Clear
+                    </md-button>
+
+                    <md-button ng-click="submitNewEndPointForm()" class="mdc-text-grey-100">
+                        <md-icon aria-label="Save" class="text-center mdc-text-grey-100 material-icons">
+                            check
+                        </md-icon>
+
+                        Save
+                    </md-button>
+                </md-card-actions>
+            </div> <!-- end .mdc-bg-{{ service.color }}-900 -->
+        </md-card> <!-- end row -->
+
+        <pre>
+            {{ newEndPointForm }}
+        </pre>
+
+        <md-list>
+            <md-list-item ng-repeat="endPoint in endPoints">
+                <md-card flex="100">
+                    <md-card-content>
+                        <div class="md-list-item-text" layout="column">
+                            <div layout="row">
+                                <div layour flex="15">
+                                    <h2 class="font-weight-300 mdc-text-{{ service.color }}-600 no-margin">{{ endPoint.httpVerb }}</h2>
+                                </div> <!-- end flex 15 -->
+
+                                <div layour flex>
+                                    <h2 class="font-weight-500 mdc-text-{{ service.color }}-900 no-margin">{{ endPoint.route }}</h2>
+                                </div> <!-- end flex -->
+                            </div> <!-- end row -->
+
+                            <p>{{ endPoint.sql }}</p>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </md-list-item>
+        </md-list> <!-- end row -->
+    </div> <!-- end column -->
 </md-content> <!-- end column -->

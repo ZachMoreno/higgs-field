@@ -110,3 +110,8 @@ input,
 .block {
     display: block;
 }
+
+md-list-item.md-no-proxy,
+md-list-item .md-no-style {
+    padding: 0px 16px 0px 0px;
+}

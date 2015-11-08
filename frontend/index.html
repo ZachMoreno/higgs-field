@@ -69,7 +69,7 @@
 
                 <a href="#/microservice/{{ service.id }}" ng-repeat="service in services | filter:searchQuery">
                     <md-button class="mdc-text-blue-grey-200">
-                        <md-icon aria-label="Dashboard" class="text-center mdc-text-blue-grey-200 material-icons">
+                        <md-icon aria-label="Dashboard" class="text-center mdc-text-{{ service.color }}-300 material-icons">
                             dashboard
                         </md-icon>
                         {{ service.microserviceName }}
