@@ -111,6 +111,19 @@ input,
     display: block;
 }
 
+#login-form {
+    
+}
+
+#login-form button.md-fab {
+    background-color: #64FFDA;
+    margin-bottom: -40px;
+}
+
+#login-form button.md-fab md-icon {
+    color: #37474F;
+}
+
 md-list-item.md-no-proxy,
 md-list-item .md-no-style {
     padding: 0px 16px 0px 0px;

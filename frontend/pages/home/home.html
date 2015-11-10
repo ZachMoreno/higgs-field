@@ -1,5 +1,5 @@
 <md-content layout="column" flex class="md-padding mdc-bg-blue-grey-200">
-    <div layout="row" layout-wrap>
+    <div layout="row" layout-wrap ng-show="isLoggedIn">
         <md-card ng-repeat="service in services | filter:searchQuery" flex="30">
             <md-card-content class="mdc-bg-{{ service.color }}-800">
                 <a ng-href="#/microservice/{{ service.id }}">
@@ -25,5 +25,83 @@
                 </md-card-actions>
             </div> <!-- end .mdc-text-{{ service.color }}-100 -->
       </md-card> <!-- end flex -->
+    </div> <!-- end row -->
+
+    <div layout="row" layout-wrap ng-hide="isLoggedIn">
+        <div flex flex-offset="33">
+            <md-card id="login-form">
+                <md-card-content ng-show="login">
+                    <h2 class="text-center mdc-text-blue-grey-600 font-weight-300 no-margin">Login</h2>
+
+                    <form>
+                        <md-input-container>
+                            <label>Username</label>
+
+                            <input class="" type="text" ng-model="loginForm.username"/>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Password</label>
+
+                            <input class="" type="password" ng-model="loginForm.password"/>
+                        </md-input-container>
+
+                        <p class="text-center no-margin">
+                            <a href="" class="mdc-text-teal-400" ng-click="login">
+                                first time?
+                            </a>
+
+                            <br>
+
+                            <a href="" class="mdc-text-teal-400">
+                                forgot something?
+                            </a>
+                        </p>
+
+                        <md-button class="md-fab mdc-bg-teal-A200 align-right" aria-label="Login" ng-click="isLoggedIn = !isLoggedIn">
+                            <md-icon class="mdc-text-blue-grey-800">
+                                check
+                            </md-icon>
+                        </md-button>
+                    </form>
+                </md-card-content>
+
+                <md-card-content ng-show="createAccount">
+                    <h2 class="text-center mdc-text-blue-grey-600 font-weight-300 no-margin">Create Account</h2>
+
+                    <form>
+                        <md-input-container>
+                            <label>Username</label>
+
+                            <input class="" type="text" ng-model="loginForm.username"/>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Password</label>
+
+                            <input class="" type="password" ng-model="loginForm.password"/>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Confirm Password</label>
+
+                            <input class="" type="password" ng-model="loginForm.confirmPassword"/>
+                        </md-input-container>
+
+                        <p class="text-center no-margin">
+                            <a href="" class="mdc-text-teal-400">
+                                Back to Login
+                            </a>
+                        </p>
+
+                        <md-button class="md-fab mdc-bg-teal-A200 align-right" aria-label="Login" ng-click="isLoggedIn = !isLoggedIn">
+                            <md-icon class="mdc-text-blue-grey-800">
+                                check
+                            </md-icon>
+                        </md-button>
+                    </form>
+                </md-card-content>
+            </md-card>
+        </div> <!-- end flex 33 -->
     </div> <!-- end row -->
 </md-content>

@@ -30,6 +30,20 @@
                             function($scope, $rootScope, GetServicesAPI) {
         GetServicesAPI.get.query().$promise.then(function(promisedServices) {
             $rootScope.services = promisedServices;
-        })
+        });
+
+        $rootScope.isLoggedIn = true;
+
+        $scope.createAccount = function createAccount() {
+            $rootScope.login = !$rootScope.login;
+            return true;
+        }
+
+        $scope.login = function login() {
+            $rootScope.createAccount = !$rootScope.createAccount;
+            return true;
+        }
+
+        $scope.createAccount = false;
     }]);
 })();
