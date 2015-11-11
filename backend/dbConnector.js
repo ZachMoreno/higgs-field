@@ -1,46 +1,92 @@
 (function() {
     'use strict';
 
-    var sqlite  = require('sqlite3').verbose(),
-        trans   = require('sqlite3-transactions').TransactionDatabase,
-        higgsDB = new trans(new sqlite.Database('higgs.db'));
+    var q           = require('Q'),
+        sqlite      = require('sqlite3').verbose(),
+        trans       = require('sqlite3-transactions').TransactionDatabase,
+        higgsDB     = new trans(new sqlite.Database('higgs.db')),
+        mysql       = require('./mysqlAdapter.js'),
+        dbConnector = {};
 
-    exports.getSingleDB = function getSingleDB(dbID) {
-        var sql = 'SELECT * ' +
+    dbConnector.getSingleDB = function(dbID) {
+        var d   = q.defer(),
+            sql = 'SELECT * ' +
                   'FROM dbConnections ' +
                   'WHERE id = ' + dbID;
 
         higgsDB.all(sql, function(err, resultSetData) {
             if(err !== null) {
                 console.log(err);
+                d.reject();
             } else {
-                return resultSetData[0];
+                d.resolve(resultSetData[0]);
             }
         });
+
+        return d.promise;
     };
 
-    exports.connectSingleDB = function connectSingleDB(DB) {
-        switch (DB.type) {
+    dbConnector.connectSingleDB = function(dbObj) {
+        var d = q.defer();
+
+        switch (dbObj.type) {
             case "mysql":
-                return 'mysql db';
+
+                var connection = {};
+
+                mysql.connect(dbObj).then(function(mysql){
+            	    mysql.on('error', function (err, result) {
+            	        connection.status = 'connection error';
+            	    });
+                    connection.status = 'connected';
+
+            	}).then(function() {
+            		mysql.disconnect();
+                    connection.status = 'disconnected';
+
+            	}).fail(function(err) {
+                    console.log('failed to connect to mysql', err);
+                    connection.status = 'connection failed';
+
+                }).done();
+
+                d.resolve(connection);
+
                 break;
 
             case "oracle":
-                return 'oracle db';
+
+                d.resolve({
+                    status: 'disconnected'
+                });
+
                 break;
 
             case "ms-sql":
-                return 'ms-sql db';
+
+                d.resolve({
+                    status: 'disconnected'
+                });
+
                 break;
 
             case "sqlite":
-                return 'sqlite db';
+
+                d.resolve({
+                    status: 'disconnected'
+                });
+
                 break;
 
             default:
-                console.log("Sorry, we are out of " + DB.type + ".");
+
+                d.resolve({
+                    status: 'could not identify db'
+                });
         } // end switch
+
+        return d.promise;
     };
 
-    return module.exports;
+    module.exports = dbConnector;
 })();

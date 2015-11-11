@@ -345,10 +345,14 @@
         })
 
         .post('/dbconnections/connect', function(req, res, next) {
-            var dbID         = req.body.dbID,
-                dbConnection = dbConnector.getSingleDB(dbID);
+            var dbID = req.body.dbID;
 
-            console.log(dbConnection);
+            // attempt db connection only after we have the db data returned
+            dbConnector.getSingleDB(dbID).then(function(promisedDB) {
+                dbConnector.connectSingleDB(promisedDB).then(function(promisedDBConnection){
+                    res.send(promisedDBConnection);
+                }).done();
+            });
         });
 
 

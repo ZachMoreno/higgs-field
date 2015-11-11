@@ -9,6 +9,7 @@
                    'ngMaterial',
 
                    // pages
+                   'higgs.login',
                    'higgs.home',
                    'higgs.add',
                    'higgs.microservice'
