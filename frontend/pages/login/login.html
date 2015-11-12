@@ -2,7 +2,7 @@
     <div layout="row" layout-wrap>
         <div flex="33" offset="33">
             <md-card id="login-form">
-                <md-card-content ng-hide="!createAccount">
+                <md-card-content ng-show="!createAccount">
                     <h2 class="text-center mdc-text-blue-grey-600 font-weight-300 no-margin">Login</h2>
 
                     <form>
@@ -19,18 +19,12 @@
                         </md-input-container>
 
                         <p class="text-center no-margin">
-                            <a href="" class="mdc-text-teal-400" ng-click="createAccount = false">
+                            <a href="" class="mdc-text-teal-400" ng-click="createAccount = true">
                                 first time?
-                            </a>
-
-                            <br>
-
-                            <a href="" class="mdc-text-teal-400">
-                                forgot something?
                             </a>
                         </p>
 
-                        <md-button class="md-fab mdc-bg-teal-A200 align-right" aria-label="Login" ng-click="isLoggedIn = true">
+                        <md-button class="md-fab mdc-bg-teal-A200 align-right" aria-label="Login" ng-click="authenticate()">
                             <md-icon class="mdc-text-blue-grey-800">
                                 check
                             </md-icon>
@@ -38,40 +32,42 @@
                     </form>
                 </md-card-content>
 
-                <md-card-content ng-show="!createAccount">
+                <md-card-content ng-show="createAccount">
                     <h2 class="text-center mdc-text-blue-grey-600 font-weight-300 no-margin">Create Account</h2>
 
                     <form>
                         <md-input-container>
                             <label>Username</label>
 
-                            <input class="" type="text" ng-model="loginForm.username"/>
+                            <input class="" type="text" ng-model="addUserForm.username"/>
                         </md-input-container>
 
                         <md-input-container>
                             <label>Password</label>
 
-                            <input class="" type="password" ng-model="loginForm.password"/>
+                            <input class="" type="password" ng-model="addUserForm.password"/>
                         </md-input-container>
 
                         <md-input-container>
                             <label>Confirm Password</label>
 
-                            <input class="" type="password" ng-model="loginForm.confirmPassword"/>
+                            <input class="" type="password" ng-model="addUserForm.confirm"/>
                         </md-input-container>
 
                         <p class="text-center no-margin">
-                            <a href="" ng-click="createAccount = true" class="mdc-text-teal-400">
-                                Back to Login
+                            <a href="" ng-click="createAccount = false" class="mdc-text-teal-400">
+                                back to login
                             </a>
                         </p>
 
-                        <md-button class="md-fab mdc-bg-teal-A200 align-right" aria-label="Login" ng-click="isLoggedIn = true">
+                        <md-button class="md-fab mdc-bg-teal-A200 align-right" aria-label="Login" ng-click="addUser()">
                             <md-icon class="mdc-text-blue-grey-800">
                                 check
                             </md-icon>
                         </md-button>
                     </form>
+
+                    <pre>{{ addUserForm }}</pre>
                 </md-card-content>
             </md-card>
         </div> <!-- end flex 33 -->

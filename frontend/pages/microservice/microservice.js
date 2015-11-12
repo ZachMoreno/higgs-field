@@ -22,7 +22,7 @@
     }])
 
     .factory('GetServiceAPI', ['$resource', function($resource) {
-        var remoteBaseURL  = 'http://localhost:3040/microservices/get/:serviceID',
+        var remoteBaseURL  = 'http://localhost:3040/get/microservices/where/id/:serviceID',
             getServiceAPI  = {
                 get: $resource(remoteBaseURL,
                     {
@@ -40,7 +40,7 @@
     }])
 
     .factory('GetEndPointsAPI', ['$resource', function($resource) {
-        var remoteBaseURL  = 'http://localhost:3040/microservices/get/:serviceID/endpoints',
+        var remoteBaseURL  = 'http://localhost:3040/get/endpoints/where/microservices/id/:serviceID',
             getEndPointsAPI  = {
                 get: $resource(remoteBaseURL,
                     {
@@ -58,7 +58,7 @@
     }])
 
     .factory('DeleteServiceAPI', ['$resource', function($resource) {
-        var remoteBaseURL  = 'http://localhost:3040/microservices/delete/:serviceID',
+        var remoteBaseURL  = 'http://localhost:3040/delete/microservices/:serviceID',
             deleteServiceAPI  = {
                 delete: $resource(remoteBaseURL,
                     {
@@ -76,7 +76,7 @@
     }])
 
     .factory('UpdateServiceAPI', ['$resource', function($resource) {
-        var remoteBaseURL  = 'http://localhost:3040/microservices/update/:serviceID',
+        var remoteBaseURL  = 'http://localhost:3040/update/microservices/where/id/:serviceID',
             updateServiceAPI  = {
                 update: $resource(remoteBaseURL,
                     {
@@ -94,7 +94,7 @@
     }])
 
     .factory('AddEndPointAPI', ['$resource', function($resource) {
-        var remoteBaseURL = 'http://localhost:3040/endpoints/add',
+        var remoteBaseURL = 'http://localhost:3040add/endpoints/add',
             addEndPointAPI = {
                 add: $resource(remoteBaseURL, {}, {
                     query: {

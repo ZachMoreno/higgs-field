@@ -32,23 +32,16 @@
         switch (dbObj.type) {
             case "mysql":
 
-                var connection = {};
+                var connection = {
+                    status: 'mysql connection not configured'
+                };
 
-                mysql.connect(dbObj).then(function(mysql){
-            	    mysql.on('error', function (err, result) {
-            	        connection.status = 'connection error';
-            	    });
-                    connection.status = 'connected';
-
-            	}).then(function() {
-            		mysql.disconnect();
-                    connection.status = 'disconnected';
-
-            	}).fail(function(err) {
-                    console.log('failed to connect to mysql', err);
-                    connection.status = 'connection failed';
-
-                }).done();
+                // mysql.connect(dbObj).then(function(mysql){
+            	//     mysql.on('error', function (err, result) {
+            	//         connection.status = 'connection error';
+            	//     });
+                //     connection.status = 'connected';
+            	// });
 
                 d.resolve(connection);
 

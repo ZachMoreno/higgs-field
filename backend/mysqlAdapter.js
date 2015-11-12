@@ -6,16 +6,17 @@
         mysqlAdapter = {};
 
     mysqlAdapter.connect = function connect(dbObj) {
-    	var d = q.defer();
+    	var d              = q.defer(),
+            assembledDBObj = {
+        		host     : dbObj.host,
+        		database : dbObj.dbName,
+        		user     : dbObj.username,
+        		password : dbObj.password
+        	};
 
-    	mysqlDB.connection = mysql.createConnection({
-    		host     : dbObj.host,
-    		database : dbObj.dbName,
-    		user     : dbObj.username,
-    		password : dbObj.password
-    	});
+        console.log(assembledDBObj);
 
-        console.log(dbObj);
+    	mysqlDB.connection = mysql.createConnection(assembledDBObj);
 
     	mysqlDB.connection.connect(function(err) {
     		if(err) {

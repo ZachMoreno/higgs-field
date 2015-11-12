@@ -42,6 +42,12 @@
             <!-- material design color palette -->
             <link rel="stylesheet" href="node_modules/material-design-color-palette/css/material-design-color-palette.css">
 
+			<!-- animate -->
+            <link rel="stylesheet" href="node_modules/animate.css/animate.css">
+
+			<!-- toaster -->
+            <link rel="stylesheet" href="node_modules/angularjs-toaster/toaster.css">
+
 			<!-- higgs -->
 			<link rel="stylesheet" href="higgs.css">
 	</head>
@@ -57,42 +63,61 @@
             </div>
         </md-toolbar> -->
 
+		<toaster-container>
+			<!-- feedback -->
+		</toaster-container>
+
         <div layout="row" flex>
             <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2 mdc-bg-blue-grey-800" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"  ng-show="true">
                 <header class="nav-header">
                     <a href="#/home" alt="Higs Field">
-                        <h1 class="text-center mdc-text-teal-A200 font-weight-500">
-                            Higgs Field
-                        </h1>
+						<img src="images/higgs-field.png" class="animated fadeInDown"/>
                     </a>
                 </header>
 
-                <a href="#/microservice/{{ service.id }}" ng-repeat="service in services | filter:searchQuery">
-                    <md-button class="mdc-text-blue-grey-200">
-                        <md-icon aria-label="Dashboard" class="text-center mdc-text-{{ service.color }}-300 material-icons">
-                            dashboard
-                        </md-icon>
-                        {{ service.microserviceName }}
-                    </md-button>
-                </a>
+				<md-content layout-padding class="mdc-bg-blue-grey-800">
+					<!-- <h2 class="md-subhead no-margin text-center mdc-text-blue-grey-500">
+			            Microservices
+			        </h2> -->
 
-                <a href="#/add">
-                    <md-button class="mdc-text-blue-grey-200">
-                        <md-icon aria-label="Add" class="text-center mdc-text-blue-grey-200 material-icons">
-                            add
-                        </md-icon>
-                        New Service
-                    </md-button>
-                </a>
+					<md-list>
+						<md-list-item ng-repeat="service in services | filter:searchQuery">
+			                <a href="#/microservice/{{ service.id }}" class="mdc-text-blue-grey-200">
+		                        <md-icon aria-label="Dashboard" class="text-center mdc-text-{{ service.color }}-300 material-icons md-avatar">
+		                            dashboard
+		                        </md-icon>
 
-				<a href="#/login">
-	                <md-button class="mdc-text-blue-grey-200">
-	                    <md-icon aria-label="Login" class="text-center mdc-text-blue-grey-200 material-icons">
-	                        verified_user
-	                    </md-icon>
-	                    Login
-	                </md-button>
-				</a>
+		                        <span class="md-subhead no-margin">
+									{{ service.microserviceName }}
+								</span>
+			                </a>
+						</md-list-item>
+
+						<md-list-item>
+			                <a href="#/add" class="mdc-text-blue-grey-200">
+		                        <md-icon aria-label="Add" class="text-center mdc-text-blue-grey-200 material-icons">
+		                            add
+		                        </md-icon>
+
+		                        <span class="md-subhead no-margin">
+									New Service
+								</span>
+			                </a>
+						</md-list-item>
+
+						<md-list-item>
+							<a href="#/login" class="mdc-text-blue-grey-200">
+			                    <md-icon aria-label="Login" class="text-center mdc-text-blue-grey-200 material-icons">
+			                        check
+			                    </md-icon>
+
+								<span class="md-subhead no-margin">
+			                    	Login
+								</span>
+							</a>
+						</md-list-item>
+					</md-list>
+				</md-content>
             </md-sidenav>
 
             <div layout="column" flex id="content" ng-view>
@@ -109,6 +134,7 @@
     			<script src="node_modules/angular-resource/angular-resource.js"></script>
                 <script src="node_modules/angular-animate/angular-animate.js"></script>
                 <script src="node_modules/angular-aria/angular-aria.js"></script>
+				<script src="node_modules/angularjs-toaster/toaster.js"></script>
 
     			<!-- angular material -->
     			<script src="node_modules/angular-material/angular-material.js"></script>

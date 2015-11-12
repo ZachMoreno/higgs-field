@@ -6,6 +6,7 @@
         parser      = require('body-parser'),
         port        = '3040',
         hostIP      = 'localhost',
+        winston     = require('winston'),
         sqlite      = require('sqlite3').verbose(),
         trans       = require('sqlite3-transactions').TransactionDatabase,
         higgsDB     = new trans(new sqlite.Database('higgs.db')),
@@ -25,28 +26,61 @@
     higgsAPI.use(parser.urlencoded({
     	extended: true
     }));
+
     higgsAPI.use(express.static(__dirname + '/public'));
+
+    // logging
+    var logger = new (winston.Logger)({
+        transports: [
+            new (winston.transports.Console)(),
+
+            new (winston.transports.File)({
+                name: 'info-file',
+                filename: './public/logs/info.log',
+                level: 'info'
+            }),
+
+            new (winston.transports.File)({
+                name: 'error-file',
+                filename: './public/logs/error.log',
+                level: 'error'
+            })
+        ]
+    });
 
     // Database initialization
     higgsDB.get("SELECT name " +
                 "FROM sqlite_master " +
                 "WHERE type = 'table' " +
+                "AND name = 'users' " +
                 "AND name = 'microservices' " +
                 "OR name = 'dbConnections' " +
                 "OR name = 'endPoints'",
         function(err, rows) {
             if(err !== null) {
-                console.log(err);
+                logger.info(err);
             } else if(rows === undefined) {
+                higgsDB.run('CREATE TABLE "users" ' +
+                            '("id"      INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+                            '"username" VARCHAR(255), ' +
+                            '"password" VARCHAR(255))',
+                            function(err) {
+                                if(err !== null) {
+                                    logger.error(err);
+                                } else {
+                                    logger.info("higgs.users table initialized.");
+                                }
+                            });
+
                 higgsDB.run('CREATE TABLE "microservices" ' +
                             '("id"              INTEGER PRIMARY KEY AUTOINCREMENT, ' +
                             '"color"            VARCHAR(255), ' +
                             '"microserviceName" VARCHAR(255))',
                             function(err) {
                                 if(err !== null) {
-                                    console.log(err);
+                                    logger.error(err);
                                 } else {
-                                    console.log("higgs.microservices table initialized.");
+                                    logger.info("higgs.microservices table initialized.");
                                 }
                             });
 
@@ -61,9 +95,9 @@
                             '"port"           INTEGER)',
                             function(err) {
                                 if(err !== null) {
-                                    console.log(err);
+                                    logger.error(err);
                                 } else {
-                                    console.log("higgs.dbConnections table initialized.");
+                                    logger.info("higgs.dbConnections table initialized.");
                                 }
                             });
 
@@ -75,13 +109,13 @@
                             '"sql"            VARCHAR(255))',
                             function(err) {
                                 if(err !== null) {
-                                    console.log(err);
+                                    logger.error(err);
                                 } else {
-                                    console.log("higgs.endPoints table initialized.");
+                                    logger.info("higgs.endPoints table initialized.");
                                 }
                             });
             } else {
-                console.log("Higgs DB is configured & available");
+                logger.info("Higgs DB is Online");
             }
         });
 
@@ -90,89 +124,65 @@
             res.sendFile(__dirname + '/public/' + 'index.html');
         })
 
-        .get('/dbconnections', function (req, res, next) {
-            var sql = 'SELECT * FROM dbConnections';
+
+        .post('/login', function(req, res, next) {
+            var sql = 'SELECT * ' +
+                      'FROM users ' +
+                      'WHERE username = "' + req.body.username + '" ' +
+                      'AND password = "' + req.body.password + '"';
 
             higgsDB.all(sql, function(err, resultSetData) {
                 if(err !== null) {
-                    res.send(err);
-                    console.log(err);
+                    logger.error('/login', err);
                 } else {
-                    res.send(resultSetData);
+                    logger.info('/login');
+
+                    if(resultSetData[0] &&
+                       resultSetData[0].username === req.body.username &&
+                       resultSetData[0].password === req.body.password) {
+                        res.send({
+                            'id': resultSetData[0].id,
+                            'username': resultSetData[0].username,
+                            'authenticated': true,
+                            'feedback': 'You\'re In',
+                            'microservices': []
+                        });
+                    } else {
+                        res.send({
+                            'authenticated': false,
+                            'feedback' : 'Username and or Password are incorrect'
+                        });
+                    }
                 }
             });
         })
 
-        .get('/dbconnections/get/:dbConnectionID', function (req, res, next) {
-            var sql = 'SELECT * FROM dbConnections ' +
-                      'WHERE id = ' + req.params.dbConnectionID;
-
-            higgsDB.all(sql, function(err, resultSetData) {
-                if(err !== null) {
-                    res.send(err);
-                    console.log(err);
-                } else {
-                    res.send(resultSetData);
-                }
-            });
-        })
-
-        .get('/endpoints', function (req, res, next) {
-            var sql = 'SELECT * FROM endPoints';
-
-            higgsDB.all(sql, function(err, resultSetData) {
-                if(err !== null) {
-                    res.send(err);
-                    console.log(err);
-                } else {
-                    res.send(resultSetData);
-                }
-            });
-        })
-
-        .post('/endpoints/add', function(req, res, next) {
-            var microserviceID   = req.body.microserviceID,
-                route            = req.body.route,
-                httpVerb         = req.body.httpVerb,
-                sql              = req.body.sql;
+        .post('/add/users', function(req, res, next) {
+            var username   = req.body.username,
+                password   = req.body.password;
 
             higgsDB.beginTransaction(function(err, trans) {
-                trans.run("INSERT INTO 'endPoints' (microserviceID," +
-                                                    "route," +
-                                                    "httpVerb," +
-                                                    "sql) " +
-                          "VALUES('" + microserviceID + "', '" +
-                                       route          + "', '" +
-                                       httpVerb       + "', '" +
-                                       sql            + "')");
+                trans.run("INSERT INTO 'users' (username," +
+                                                "password) " +
+                          "VALUES('" + username + "', '" +
+                                       password + "')");
 
                 trans.commit(function(err) {
                     if(err) {
-                        // auto trans.rollback() runs on error
-                        console.log("endpoint failed to insert.", err);
+                        logger.error('/add/users/', err);
                     } else {
-                        console.log("endoints was inserted successful.");
-                        res.redirect('/endoints');
+                        logger.info('/add/users/');
+                        res.send({
+                            'added': true,
+                            'feedback': 'New User Created'
+                        });
                     }
                 });
             });
         })
 
-        .get('/endpoints/get/:endPointID', function (req, res, next) {
-            var sql = 'SELECT * FROM endPoints ' +
-                      'WHERE id = ' + req.params.endPointID;
 
-            higgsDB.all(sql, function(err, resultSetData) {
-                if(err !== null) {
-                    res.send(err);
-                    console.log(err);
-                } else {
-                    res.send(resultSetData);
-                }
-            });
-        })
-
-        .get('/microservices', function (req, res, next) {
+        .get('/get/microservices', function (req, res, next) {
             var sql =   'SELECT microservices.id, ' +
                             'microservices.microserviceName, ' +
                             'microservices.color, ' +
@@ -190,15 +200,43 @@
 
             higgsDB.all(sql, function(err, resultSetData) {
                 if(err !== null) {
-                    res.send(err);
-                    console.log(err);
+                    logger.error('/get/microservices/', err);
                 } else {
+                    logger.info('returned all microservices');
                     res.send(resultSetData);
                 }
             });
         })
 
-        .post('/microservices/add', function(req, res, next) {
+        .get('/get/microservices/where/id/:id', function(req, res, next) {
+            var sql =   'SELECT microservices.id, ' +
+                            'microservices.microserviceName, ' +
+                            'microservices.color, ' +
+                            'dbConnections.type, ' +
+                            'dbConnections.dbName, ' +
+                            'dbConnections.username, ' +
+                            'dbConnections.password, ' +
+                            'dbConnections.host, ' +
+                            'dbConnections.port ' +
+                        'FROM microservices ' +
+                        'LEFT JOIN dbConnections ' +
+                            'ON dbConnections.microserviceID = microservices.id ' +
+                        'LEFT JOIN endPoints ' +
+                            'ON endPoints.microserviceID = microservices.id ' +
+                        'WHERE microservices.id = ' + req.params.id;
+
+            // select DB object by id
+            higgsDB.all(sql, function(err, resultSetData) {
+                if(err !== null) {
+                    logger.error('/get/microservices/where/id/' + req.params.id, err);
+                } else {
+                    logger.info('/get/microservices/where/id/' + req.params.id);
+                    res.send(resultSetData);
+                }
+            });
+        })
+
+        .post('/add/microservices', function(req, res, next) {
             var microserviceName = req.body.microserviceName,
                 color            = req.body.color,
                 type             = req.body.type,
@@ -231,84 +269,40 @@
 
                 trans.commit(function(err) {
                     if(err) {
-                        // auto trans.rollback() runs on error
-                        console.log("microservice failed to insert.", err);
+                        logger.error('/add/endpoints/', err);
                     } else {
-                        console.log("microservice was inserted successful.");
-                        res.redirect('/microservices');
+                        logger.info('/add/endpoints/');
+                        res.redirect('/get/endPoints');
                     }
                 });
             });
         })
 
-        .get('/microservices/get/:serviceID', function(req, res, next) {
-            var sql =   'SELECT microservices.id, ' +
-                            'microservices.microserviceName, ' +
-                            'microservices.color, ' +
-                            'dbConnections.type, ' +
-                            'dbConnections.dbName, ' +
-                            'dbConnections.username, ' +
-                            'dbConnections.password, ' +
-                            'dbConnections.host, ' +
-                            'dbConnections.port ' +
-                        'FROM microservices ' +
-                        'LEFT JOIN dbConnections ' +
-                            'ON dbConnections.microserviceID = microservices.id ' +
-                        'LEFT JOIN endPoints ' +
-                            'ON endPoints.microserviceID = microservices.id ' +
-                        'WHERE microservices.id = ' + req.params.serviceID;
-
-            // select DB object by id
-            higgsDB.all(sql, function(err, resultSetData) {
-                if(err !== null) {
-                    res.send(err);
-                    console.log(err);
-                } else {
-                    res.send(resultSetData);
-                }
-            });
-        })
-
-        .get('/microservices/get/:serviceID/endpoints', function(req,res,next) {
-            var sql = 'SELECT * FROM endPoints ' +
-                      'WHERE microserviceID = ' + req.params.serviceID;
-
-            higgsDB.all(sql, function(err, resultSetData) {
-                if(err !== null) {
-                    res.send(err);
-                    console.log(err);
-                } else {
-                    res.send(resultSetData);
-                }
-            });
-        })
-
-        .get('/microservices/delete/:serviceID', function(req, res, next) {
+        .get('/delete/microservices/where/id/:id', function(req, res, next) {
             higgsDB.beginTransaction(function(err, trans) {
                 trans.run('DELETE FROM microservices ' +
-                          'WHERE microservices.id = ' + req.params.serviceID);
+                          'WHERE microservices.id = ' + req.params.id);
 
                 trans.run('DELETE FROM dbConnections ' +
-                          'WHERE dbConnections.microserviceID = ' + req.params.serviceID);
+                          'WHERE dbConnections.microserviceID = ' + req.params.id);
 
                 trans.run('DELETE FROM endPoints ' +
-                          'WHERE endPoints.microserviceID = ' + req.params.serviceID);
+                          'WHERE endPoints.microserviceID = ' + req.params.id);
 
                 trans.commit(function(err) {
                     if(err) {
-                        // auto trans.rollback() runs on error
-                        console.log("failed to delete microservice id:" + req.params.serviceID, err);
+                        logger.error('/delete/microservices/where/id/' + req.params.id, err);
                     } else {
-                        console.log("successfully deleted microservice id:" + req.params.serviceID);
+                        logger.info('/delete/microservices/where/id/' + req.params.id);
                         res.redirect('/microservices');
                     }
                 });
             });
         })
 
-        .post('/microservices/update', function(req, res, next) {
+        .post('/update/microservices/where/id/:id', function(req, res, next) {
             var microserviceName       = req.body.microserviceName,
-                serviceID              = req.body.id,
+                id                     = req.params.id,
                 color                  = req.body.color,
                 type                   = req.body.type,
                 dbName                 = req.body.dbName,
@@ -321,7 +315,7 @@
                 trans.run('UPDATE microservices ' +
                           'SET color            = "' + color            + '", ' +
                               'microserviceName = "' + microserviceName + '" ' +
-                          'WHERE id = ' + serviceID);
+                          'WHERE id = ' + id);
 
                 trans.run('UPDATE dbConnections ' +
                           'SET type     = "' + type     + '", ' +
@@ -330,22 +324,49 @@
                               'password = "' + password + '", ' +
                               'host     = "' + host     + '", ' +
                               'port     = "' + port     + '" ' +
-                          'WHERE microserviceID = ' + serviceID);
+                          'WHERE microserviceID = ' + id);
 
                 trans.commit(function(err) {
                     if(err) {
-                        // auto trans.rollback() runs on error
-                        console.log(microserviceName + " microservice (id : " + serviceID + ") failed to update", err);
+                        logger.error(microserviceName + " microservice (id : " + id + ") failed to update", err);
                     } else {
-                        console.log(microserviceName + " microservice (id : " + serviceID + ") was updated successfully");
-                        res.redirect('/microservices');
+                        logger.info('/update/microservices/where/id/' + id);
+                        res.redirect('/get/microservices');
                     }
                 });
+            })
+        })
+
+
+        .get('/get/databases', function (req, res, next) {
+            var sql = 'SELECT * FROM dbConnections';
+
+            higgsDB.all(sql, function(err, resultSetData) {
+                if(err !== null) {
+                    logger.error('/get/databases/', err);
+                } else {
+                    logger.info('returned all databases');
+                    res.send(resultSetData);
+                }
             });
         })
 
-        .post('/dbconnections/connect', function(req, res, next) {
-            var dbID = req.body.dbID;
+        .get('/get/databases/where/microservices/id/:id', function (req, res, next) {
+            var sql = 'SELECT * FROM dbConnections ' +
+                      'WHERE microserviceID = ' + req.params.id;
+
+            higgsDB.all(sql, function(err, resultSetData) {
+                if(err !== null) {
+                    logger.error('/get/databases/id/' + req.params.id, err);
+                } else {
+                    logger.info('returned database id: ' + req.params.id);
+                    res.send(resultSetData);
+                }
+            });
+        })
+
+        .post('/connect/databases/where/id/:id', function(req, res, next) {
+            var dbID = req.params.id;
 
             // attempt db connection only after we have the db data returned
             dbConnector.getSingleDB(dbID).then(function(promisedDB) {
@@ -353,11 +374,81 @@
                     res.send(promisedDBConnection);
                 }).done();
             });
+        })
+
+
+        .get('/get/endpoints', function (req, res, next) {
+            var sql = 'SELECT * FROM endPoints';
+
+            higgsDB.all(sql, function(err, resultSetData) {
+                if(err !== null) {
+                    logger.error('/get/endpoints/', err);
+                } else {
+                    logger.info('returned all endpoints');
+                    res.send(resultSetData);
+                }
+            });
+        })
+
+        .get('/get/endpoints/where/id/:id', function (req, res, next) {
+            var sql = 'SELECT * FROM endPoints ' +
+                      'WHERE id = ' + req.params.id;
+
+            higgsDB.all(sql, function(err, resultSetData) {
+                if(err !== null) {
+                    logger.error('/get/endpoints/id', err);
+                } else {
+                    logger.info('returned endpoint id: ' + req.params.id);
+                    res.send(resultSetData);
+                }
+            });
+        })
+
+        .get('/get/endpoints/where/microservices/id/:id/', function(req,res,next) {
+            var sql = 'SELECT * FROM endPoints ' +
+                      'WHERE microserviceID = ' + req.params.id;
+
+            higgsDB.all(sql, function(err, resultSetData) {
+                if(err !== null) {
+                    logger.error('/get/endpoints/where/microservice/id/' + req.params.id, err);
+                } else {
+                    logger.info('/get/endpoints/where/microservice/id/' + req.params.id);
+                    res.send(resultSetData);
+                }
+            });
+        })
+
+        .post('/add/endpoints', function(req, res, next) {
+            var microserviceID   = req.body.microserviceID,
+                route            = req.body.route,
+                httpVerb         = req.body.httpVerb,
+                sql              = req.body.sql;
+
+            higgsDB.beginTransaction(function(err, trans) {
+                trans.run("INSERT INTO 'endPoints' (microserviceID," +
+                                                    "route," +
+                                                    "httpVerb," +
+                                                    "sql) " +
+                          "VALUES('" + microserviceID + "', '" +
+                                       route          + "', '" +
+                                       httpVerb       + "', '" +
+                                       sql            + "')");
+
+                trans.commit(function(err) {
+                    if(err) {
+                        logger.error('/add/endpoints/', err);
+                    } else {
+                        logger.info('added endpoint');
+                        res.redirect('/get/endpoints');
+                    }
+                });
+            });
         });
+
 
 
     higgsAPI.use(router);
     higgsAPI.listen(port, hostIP, function() {
-        console.log('higgs API is awake @ http://' + hostIP + ':' + port);
+        logger.info('higgs API is awake @ http://' + hostIP + ':' + port);
     });
 })();

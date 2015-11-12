@@ -11,7 +11,7 @@
     }])
 
     .factory('AddServicesAPI', ['$resource', function($resource) {
-        var remoteBaseURL = 'http://localhost:3040/microservices/add',
+        var remoteBaseURL = 'http://localhost:3040/add/microservices/',
             addServicesAPI = {
                 add: $resource(remoteBaseURL, {}, {
                     query: {
@@ -26,8 +26,7 @@
         return addServicesAPI;
     }])
 
-    .controller('AddController', ['$scope', '$rootScope', '$location', 'GetServicesAPI', 'AddServicesAPI',
-                            function($scope, $rootScope, $locations, GetServicesAPI, AddServicesAPI) {
+    .controller('AddController', ['$scope', '$rootScope', '$location', 'GetServicesAPI', 'AddServicesAPI', function($scope, $rootScope, $locations, GetServicesAPI, AddServicesAPI) {
         $scope.newServiceForm = {};
 
         $scope.submitNewServiceForm = function submitNewServiceForm() {

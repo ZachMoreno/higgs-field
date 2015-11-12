@@ -8,14 +8,16 @@ html, body {
     margin: inherit;
 }
 
+header.nav-header img {
+    width: 85%;
+    display: block;
+    margin: 20px auto;
+}
+
 md-sidenav.md-locked-open {
     width: 200px !important;
     min-width: 200px !important;
     max-width: 200px !important;
-}
-
-md-sidenav header {
-    height: 100px;
 }
 
 md-toolbar {
@@ -112,7 +114,7 @@ input,
 }
 
 #login-form {
-    
+
 }
 
 #login-form button.md-fab {

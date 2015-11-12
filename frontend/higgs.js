@@ -7,6 +7,7 @@
                    'ngRoute',
                    'ngResource',
                    'ngMaterial',
+                   'toaster',
 
                    // pages
                    'higgs.login',
