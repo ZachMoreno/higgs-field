@@ -44,7 +44,7 @@
         return addUsersAPI;
     }])
 
-    .controller('LoginController', ['$scope', '$rootScope', '$location', 'GetServicesAPI', 'AuthenticationAPI', 'AddUsersAPI', 'toaster', function($scope, $rootScope, $location, GetServicesAPI, AuthenticationAPI, AddUsersAPI, toaster) {
+    .controller('LoginController', ['$scope', '$rootScope', '$location', '$cookies', '$cookieStore', 'GetServicesAPI', 'AuthenticationAPI', 'AddUsersAPI', 'toaster', function($scope, $rootScope, $location, $cookies, $cookieStore, GetServicesAPI, AuthenticationAPI, AddUsersAPI, toaster) {
 
         GetServicesAPI.get.query().$promise.then(function(promisedServices) {
             $rootScope.services = promisedServices;
@@ -86,8 +86,7 @@
                         showCloseButton: true
                     });
 
-                    $rootScope.auth = res;
-                    $rootScope.isLoggedIn = true;
+                    $cookieStore.put('authentication', res);
                     $location.path('/dashboard');
                 } else {
                     toaster.pop({
@@ -96,6 +95,8 @@
                         body: res.feedback,
                         showCloseButton: true
                     });
+
+                    $rootScope.authenticated = false;
                 }
             });
         };

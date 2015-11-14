@@ -272,7 +272,6 @@
                         logger.error('/add/endpoints/', err);
                     } else {
                         logger.info('/add/endpoints/');
-                        res.redirect('/get/endPoints');
                     }
                 });
             });
@@ -294,7 +293,6 @@
                         logger.error('/delete/microservices/where/id/' + req.params.id, err);
                     } else {
                         logger.info('/delete/microservices/where/id/' + req.params.id);
-                        res.redirect('/microservices');
                     }
                 });
             });
@@ -331,7 +329,6 @@
                         logger.error(microserviceName + " microservice (id : " + id + ") failed to update", err);
                     } else {
                         logger.info('/update/microservices/where/id/' + id);
-                        res.redirect('/get/microservices');
                     }
                 });
             })

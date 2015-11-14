@@ -97,7 +97,7 @@
     }])
 
     .factory('AddEndPointAPI', ['$resource', function($resource) {
-        var remoteBaseURL = 'http://localhost:3040add/endpoints/add',
+        var remoteBaseURL = 'http://localhost:3040/add/endpoints',
             addEndPointAPI = {
                 add: $resource(remoteBaseURL, {}, {
                     query: {
@@ -117,13 +117,13 @@
         $scope.deleteService = function deleteService() {
             var serviceID = $route.current.params.serviceID;
             DeleteServiceAPI.delete.query({serviceID: serviceID});
-            $location.path('/home');
+            $location.path('/dashboard');
         };
 
         $scope.updateService = function updateService() {
             var updateService = new UpdateServiceAPI.update($scope.service);
             updateService.$save();
-            $location.path('/home');
+            $location.path('/dashboard');
         };
 
         $scope.newEndPointForm = {

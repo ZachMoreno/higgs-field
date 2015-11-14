@@ -15,13 +15,13 @@
                         <md-input-container>
                             <label>Username</label>
 
-                            <input class="" type="text" ng-model="loginForm.username"/>
+                            <input class="" type="text" autofocus required ng-model="loginForm.username"/>
                         </md-input-container>
 
                         <md-input-container>
                             <label>Password</label>
 
-                            <input class="" type="password" ng-model="loginForm.password"/>
+                            <input class="" type="password" ng-model="loginForm.password" required/>
                         </md-input-container>
 
                         <p class="text-center no-margin">
@@ -45,19 +45,19 @@
                         <md-input-container>
                             <label>Username</label>
 
-                            <input class="" type="text" ng-model="addUserForm.username"/>
+                            <input class="" type="text" autofocus required ng-model="addUserForm.username"/>
                         </md-input-container>
 
                         <md-input-container>
                             <label>Password</label>
 
-                            <input class="" type="password" ng-model="addUserForm.password"/>
+                            <input class="" type="password" ng-model="addUserForm.password" required/>
                         </md-input-container>
 
                         <md-input-container>
                             <label>Confirm Password</label>
 
-                            <input class="" type="password" ng-model="addUserForm.confirm"/>
+                            <input class="" type="password" ng-model="addUserForm.confirm" required/>
                         </md-input-container>
 
                         <p class="text-center no-margin">

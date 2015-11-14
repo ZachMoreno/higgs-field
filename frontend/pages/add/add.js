@@ -35,7 +35,7 @@
         $scope.submitNewServiceForm = function submitNewServiceForm() {
             var newService = new AddServicesAPI.add($scope.newServiceForm);
             newService.$save();
-            $location.path('/home');
+            $location.path('/dashboard');
         };
 
         $scope.clearNewServiceForm = function clearNewServiceForm() {
