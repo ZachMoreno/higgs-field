@@ -1,15 +1,16 @@
 (function () {
     'use strict';
 
-    angular.module('higgs.home', ['ngRoute'])
+    angular.module('higgs.dashboard', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/home', {
-            templateUrl: 'pages/home/home.html',
-            controller: 'HomeController'
+        $routeProvider.when('/dashboard', {
+            templateUrl: 'pages/dashboard/dashboard.html',
+            controller: 'DashboardController',
+            access: {
+                requiresLogin: true
+            }
         });
-
-        $routeProvider.otherwise({ redirectTo: '/home' });
     }])
 
     .factory('GetServicesAPI', ['$resource', function($resource) {
@@ -26,7 +27,7 @@
         return getServicesAPI;
     }])
 
-    .controller('HomeController', ['$scope', '$rootScope', 'GetServicesAPI',
+    .controller('DashboardController', ['$scope', '$rootScope', 'GetServicesAPI',
                             function($scope, $rootScope, GetServicesAPI) {
         GetServicesAPI.get.query().$promise.then(function(promisedServices) {
             $rootScope.services = promisedServices;

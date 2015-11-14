@@ -11,7 +11,7 @@
 
                    // pages
                    'higgs.login',
-                   'higgs.home',
+                   'higgs.dashboard',
                    'higgs.add',
                    'higgs.microservice'
     ])
@@ -20,7 +20,21 @@
 
     })
 
-    .run(function(){
+    .run(['$rootScope', '$location', function($rootScope, $location){
+        $rootScope.isLoggedIn = false;
 
-    });
+        $rootScope.$on('$routeChangeStart', function (event, next) {
+            // route interception & forced login
+            if(next.originalPath !== '/login' &&
+               !$rootScope.isLoggedIn &&
+               next.access !== undefined) {
+                $location.path('/login');
+            }
+        });
+
+        $rootScope.logout = function logout() {
+            $rootScope.isLoggedIn = false;
+            $location.path('/login');
+        }
+    }]);
 })();

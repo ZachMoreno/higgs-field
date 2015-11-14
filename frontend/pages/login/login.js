@@ -45,11 +45,11 @@
     }])
 
     .controller('LoginController', ['$scope', '$rootScope', '$location', 'GetServicesAPI', 'AuthenticationAPI', 'AddUsersAPI', 'toaster', function($scope, $rootScope, $location, GetServicesAPI, AuthenticationAPI, AddUsersAPI, toaster) {
+
         GetServicesAPI.get.query().$promise.then(function(promisedServices) {
             $rootScope.services = promisedServices;
         });
 
-        $rootScope.isLoggedIn = false;
         $scope.createAccount = false;
 
         $scope.addUser = function addUser() {
@@ -87,7 +87,8 @@
                     });
 
                     $rootScope.auth = res;
-                    $location.path('/home');
+                    $rootScope.isLoggedIn = true;
+                    $location.path('/dashboard');
                 } else {
                     toaster.pop({
                         type: 'error',

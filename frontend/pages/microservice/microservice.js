@@ -7,6 +7,9 @@
         $routeProvider.when('/microservice/:serviceID', {
             templateUrl: 'pages/microservice/microservice.html',
             controller: 'MicroserviceController',
+            access: {
+                requiresLogin: true
+            },
             resolve: {
                 // available in controller
                 service: function service(GetServiceAPI, $route) {
@@ -58,7 +61,7 @@
     }])
 
     .factory('DeleteServiceAPI', ['$resource', function($resource) {
-        var remoteBaseURL  = 'http://localhost:3040/delete/microservices/:serviceID',
+        var remoteBaseURL  = 'http://localhost:3040/delete/microservices/where/id/:serviceID',
             deleteServiceAPI  = {
                 delete: $resource(remoteBaseURL,
                     {
@@ -75,8 +78,8 @@
         return deleteServiceAPI;
     }])
 
-    .factory('UpdateServiceAPI', ['$resource', function($resource) {
-        var remoteBaseURL  = 'http://localhost:3040/update/microservices/where/id/:serviceID',
+    .factory('UpdateServiceAPI', ['$resource', '$route', function($resource, $route) {
+        var remoteBaseURL  = 'http://localhost:3040/update/microservices/where/id/' + $route.current.params.serviceID,
             updateServiceAPI  = {
                 update: $resource(remoteBaseURL,
                     {
@@ -110,11 +113,11 @@
     }])
 
     .controller('MicroserviceController', ['$scope', '$rootScope', '$location', '$route', 'GetServicesAPI', 'DeleteServiceAPI', 'UpdateServiceAPI', 'AddEndPointAPI', 'service', 'endPoints', function($scope, $rootScope, $location, $route, GetServicesAPI, DeleteServiceAPI, UpdateServiceAPI, AddEndPointAPI, service, endPoints) {
+
         $scope.deleteService = function deleteService() {
             var serviceID = $route.current.params.serviceID;
-            DeleteServiceAPI.delete.query({serviceID: serviceID}).$promise.then(function() {
-                $location.path('/home');
-            });
+            DeleteServiceAPI.delete.query({serviceID: serviceID});
+            $location.path('/home');
         };
 
         $scope.updateService = function updateService() {

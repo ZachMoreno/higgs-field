@@ -6,7 +6,10 @@
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/add', {
             templateUrl: 'pages/add/add.html',
-            controller: 'AddController'
+            controller: 'AddController',
+            access: {
+                requiresLogin: true
+            }
         });
     }])
 
@@ -26,7 +29,7 @@
         return addServicesAPI;
     }])
 
-    .controller('AddController', ['$scope', '$rootScope', '$location', 'GetServicesAPI', 'AddServicesAPI', function($scope, $rootScope, $locations, GetServicesAPI, AddServicesAPI) {
+    .controller('AddController', ['$scope', '$rootScope', '$location', 'GetServicesAPI', 'AddServicesAPI', function($scope, $rootScope, $location, GetServicesAPI, AddServicesAPI) {
         $scope.newServiceForm = {};
 
         $scope.submitNewServiceForm = function submitNewServiceForm() {

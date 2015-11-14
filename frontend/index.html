@@ -68,11 +68,15 @@
 		</toaster-container>
 
         <div layout="row" flex>
-            <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2 mdc-bg-blue-grey-800" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"  ng-show="true">
+            <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z4 mdc-bg-blue-grey-800" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" ng-show="isLoggedIn">
                 <header class="nav-header">
-                    <a href="#/home" alt="Higs Field">
+                    <a href="#/dashboard" alt="Higs Field">
 						<img src="images/higgs-field.png" class="animated fadeInDown"/>
                     </a>
+
+					<!-- <p class="text-center mdc-text-blue-grey-600 no-margin animated fadeIn">
+						<small>presented by <strong><a href="http://thedisruptory.io" target="_blank" class="mdc-text-teal-A400">The Disruptory</a></strong></small>
+					</p> -->
                 </header>
 
 				<md-content layout-padding class="mdc-bg-blue-grey-800">
@@ -81,48 +85,60 @@
 			        </h2> -->
 
 					<md-list>
-						<md-list-item ng-repeat="service in services | filter:searchQuery">
-			                <a href="#/microservice/{{ service.id }}" class="mdc-text-blue-grey-200">
-		                        <md-icon aria-label="Dashboard" class="text-center mdc-text-{{ service.color }}-300 material-icons md-avatar">
+						<a ng-repeat="service in services | filter:searchQuery" ng-href="#/microservice/{{ service.id }}">
+							<md-list-item class="mdc-text-blue-grey-200">
+		                        <md-icon aria-label="Dashboard" class="mdc-text-{{ service.color }}-300 material-icons md-avatar-icon">
 		                            dashboard
 		                        </md-icon>
 
-		                        <span class="md-subhead no-margin">
-									{{ service.microserviceName }}
-								</span>
-			                </a>
-						</md-list-item>
+								<p>{{ service.microserviceName }}</p>
+							</md-list-item>
 
-						<md-list-item>
-			                <a href="#/add" class="mdc-text-blue-grey-200">
-		                        <md-icon aria-label="Add" class="text-center mdc-text-blue-grey-200 material-icons">
+							<md-divider></md-divider>
+						</a>
+
+						<a href="#/add" class="mdc-text-blue-grey-200">
+							<md-list-item>
+		                        <md-icon aria-label="Add" class="mdc-text-blue-grey-200 material-icons md-avatar-icon">
 		                            add
 		                        </md-icon>
 
-		                        <span class="md-subhead no-margin">
+		                        <p>
 									New Service
-								</span>
-			                </a>
-						</md-list-item>
+								</p>
+							</md-list-item>
+						</a>
 
-						<md-list-item>
-							<a href="#/login" class="mdc-text-blue-grey-200">
-			                    <md-icon aria-label="Login" class="text-center mdc-text-blue-grey-200 material-icons">
-			                        check
+						<md-divider></md-divider>
+
+						<a href="" class="mdc-text-blue-grey-200" ng-click="logout()">
+							<md-list-item>
+			                    <md-icon aria-label="Login" class="mdc-text-blue-grey-200 material-icons md-avatar-icon">
+			                        eject
 			                    </md-icon>
 
-								<span class="md-subhead no-margin">
-			                    	Login
-								</span>
-							</a>
-						</md-list-item>
+								<p>
+			                    	Logout
+								</p>
+							</md-list-item>
+						</a>
 					</md-list>
 				</md-content>
             </md-sidenav>
 
-            <div layout="column" flex id="content" ng-view>
+            <div layout="column" flex id="content" class="mdc-bg-blue-grey-200" ng-view>
                 <!-- content -->
+
+				<!-- <footer class="mdc-bg-blue-grey-200 animated fadeInUp">
+			        <p class="text-center mdc-text-blue-grey-400">
+						<small>
+				            Made with <md-icon class="material-icons mdc-text-blue-grey-400">favorite</md-icon> by <a href="http://thedisruptory.io" target="_blank" class="mdc-text-blue-grey-400"><strong>The Disruptory</strong></a>
+						</small>
+			        </p>
+			    </footer> -->
             </div> <!-- end #content -->
+
+
         </div> <!-- end .row -->
 
         <!-- js -->
@@ -145,7 +161,7 @@
 
             <!-- pages -->
 			<script src="pages/login/login.js"></script>
-            <script src="pages/home/home.js"></script>
+            <script src="pages/dashboard/dashboard.js"></script>
 			<script src="pages/add/add.js"></script>
 			<script src="pages/microservice/microservice.js"></script>
 

@@ -1,7 +1,13 @@
-<md-content layout="column" flex class="md-padding mdc-bg-blue-grey-200">
+<md-content layout="column" flex class="mdc-bg-blue-grey-200" id="login">
+    <md-toolbar class="mdc-bg-blue-grey-800">
+        <div class="md-toolbar-tools">
+            <img src="images/higgs-field.png" class="animated fadeInDown"/>
+        </div> <!-- end .md-toolbar-tools -->
+    </md-toolbar>
+
     <div layout="row" layout-wrap>
         <div flex="33" offset="33">
-            <md-card id="login-form">
+            <md-card id="login-form" class="animated fadeInUp">
                 <md-card-content ng-show="!createAccount">
                     <h2 class="text-center mdc-text-blue-grey-600 font-weight-300 no-margin">Login</h2>
 

@@ -130,3 +130,21 @@ md-list-item.md-no-proxy,
 md-list-item .md-no-style {
     padding: 0px 16px 0px 0px;
 }
+
+
+#login img {
+    width: 15%;
+    padding-top: 47px;
+}
+
+#login md-toolbar {
+    background-color: #37474F !important;
+}
+
+#login md-card {
+    margin-top: -60px;
+}
+
+#login .md-layout-row.layout-wrap {
+    z-index: 99999;
+}
