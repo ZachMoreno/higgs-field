@@ -74,6 +74,7 @@
 
                 higgsDB.run('CREATE TABLE "microservices" ' +
                             '("id"              INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+                            '"userID"           INTEGER, ' +
                             '"color"            VARCHAR(255), ' +
                             '"microserviceName" VARCHAR(255))',
                             function(err) {
@@ -182,34 +183,35 @@
         })
 
 
-        .get('/get/microservices', function (req, res, next) {
-            var sql =   'SELECT microservices.id, ' +
-                            'microservices.microserviceName, ' +
-                            'microservices.color, ' +
-                            'dbConnections.type, ' +
-                            'dbConnections.dbName, ' +
-                            'dbConnections.username, ' +
-                            'dbConnections.password, ' +
-                            'dbConnections.host, ' +
-                            'dbConnections.port ' +
-                        'FROM microservices ' +
-                        'LEFT JOIN dbConnections ' +
-                            'ON microservices.id = dbConnections.microserviceID',
-                resultSet,
-                subResultSet;
+        .get('/get/microservices/where/users/id/:userID', function (req, res, next) {
+            var sql = 'SELECT microservices.id, ' +
+                           'microservices.userID, ' +
+                           'microservices.microserviceName, ' +
+                           'microservices.color, ' +
+                           'dbConnections.type, ' +
+                           'dbConnections.dbName, ' +
+                           'dbConnections.username, ' +
+                           'dbConnections.password, ' +
+                           'dbConnections.host, ' +
+                           'dbConnections.port ' +
+                      'FROM microservices ' +
+                      'LEFT JOIN dbConnections ' +
+                           'ON microservices.id = dbConnections.microserviceID ' +
+                      'WHERE microservices.userID = ' + req.params.userID;
 
             higgsDB.all(sql, function(err, resultSetData) {
                 if(err !== null) {
                     logger.error('/get/microservices/', err);
                 } else {
-                    logger.info('returned all microservices');
+                    logger.info('/get/microservices/');
                     res.send(resultSetData);
                 }
             });
         })
 
-        .get('/get/microservices/where/id/:id', function(req, res, next) {
+        .get('/get/microservices/where/id/:id/and/users/id/:userID', function(req, res, next) {
             var sql =   'SELECT microservices.id, ' +
+                            'microservices.userID, ' +
                             'microservices.microserviceName, ' +
                             'microservices.color, ' +
                             'dbConnections.type, ' +
@@ -223,7 +225,8 @@
                             'ON dbConnections.microserviceID = microservices.id ' +
                         'LEFT JOIN endPoints ' +
                             'ON endPoints.microserviceID = microservices.id ' +
-                        'WHERE microservices.id = ' + req.params.id;
+                        'WHERE microservices.id = ' + req.params.id + ' ' +
+                        'AND microservices.userID = ' + req.params.userID;
 
             // select DB object by id
             higgsDB.all(sql, function(err, resultSetData) {
@@ -238,6 +241,7 @@
 
         .post('/add/microservices', function(req, res, next) {
             var microserviceName = req.body.microserviceName,
+                userID           = req.body.userID,
                 color            = req.body.color,
                 type             = req.body.type,
                 dbName           = req.body.dbName,
@@ -247,9 +251,11 @@
                 port             = req.body.port;
 
             higgsDB.beginTransaction(function(err, trans) {
-                trans.run("INSERT INTO 'microservices' (color, " +
+                trans.run("INSERT INTO 'microservices' (userID, " +
+                                                       "color, " +
                                                        "microserviceName) " +
-                          "VALUES('" + color            + "', '" +
+                          "VALUES('" + userID           + "', '" +
+                                       color            + "', '" +
                                        microserviceName + "')");
 
                 trans.run("INSERT INTO 'dbConnections' (microserviceID, " +
@@ -269,9 +275,9 @@
 
                 trans.commit(function(err) {
                     if(err) {
-                        logger.error('/add/endpoints/', err);
+                        logger.error('/add/microservices/', err);
                     } else {
-                        logger.info('/add/endpoints/');
+                        logger.info('/add/microservices/');
                     }
                 });
             });

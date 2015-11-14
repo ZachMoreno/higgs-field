@@ -29,8 +29,9 @@
         return addServicesAPI;
     }])
 
-    .controller('AddController', ['$scope', '$rootScope', '$location', 'GetServicesAPI', 'AddServicesAPI', function($scope, $rootScope, $location, GetServicesAPI, AddServicesAPI) {
+    .controller('AddController', ['$scope', '$rootScope', '$location', '$cookies', '$cookieStore', 'GetServicesAPI', 'AddServicesAPI', function($scope, $rootScope, $location, $cookies, $cookieStore, GetServicesAPI, AddServicesAPI) {
         $scope.newServiceForm = {};
+        $scope.newServiceForm.userID = $cookieStore.get('authentication').id;
 
         $scope.submitNewServiceForm = function submitNewServiceForm() {
             var newService = new AddServicesAPI.add($scope.newServiceForm);

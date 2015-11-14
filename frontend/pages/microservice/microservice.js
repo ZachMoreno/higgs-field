@@ -24,8 +24,12 @@
         });
     }])
 
-    .factory('GetServiceAPI', ['$resource', function($resource) {
-        var remoteBaseURL  = 'http://localhost:3040/get/microservices/where/id/:serviceID',
+    .factory('GetServiceAPI', ['$resource', '$cookies', '$cookieStore', function($resource, $cookies, $cookieStore) {
+        if($cookieStore.get('authentication')){
+            var userID = $cookieStore.get('authentication').id
+        }
+
+        var remoteBaseURL  = 'http://localhost:3040/get/microservices/where/id/:serviceID/and/users/id/' + userID,
             getServiceAPI  = {
                 get: $resource(remoteBaseURL,
                     {
