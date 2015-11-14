@@ -51,12 +51,13 @@
         });
 
         $scope.createAccount = false;
+        $scope.loginForm = {};
+        $scope.addUserForm = {};
 
         $scope.addUser = function addUser() {
-            $scope.addUserForm = {};
-
             if($scope.addUserForm.password === $scope.addUserForm.confirm) {
                 var user = new AddUsersAPI.add($scope.addUserForm);
+
                 user.$save().then(function(res) {
                     if(res.added === true) {
                         toaster.pop({
@@ -67,10 +68,19 @@
                         });
 
                         $scope.createAccount = false;
-                    }
-                })
-            } else {
+                        $scope.loginForm.username = $scope.addUserForm.username;
+                        $scope.loginForm.password = $scope.addUserForm.password;
 
+                        $scope.authenticate();
+                    }
+                });
+            } else {
+                toaster.pop({
+                    type: 'error',
+                    title: 'Nope!',
+                    body: 'Passwords do not match',
+                    showCloseButton: true
+                });
             }
         };
 
