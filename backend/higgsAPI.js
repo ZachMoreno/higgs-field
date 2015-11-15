@@ -201,9 +201,9 @@
 
             higgsDB.all(sql, function(err, resultSetData) {
                 if(err !== null) {
-                    logger.error('/get/microservices/', err);
+                    logger.error('/get/microservices/where/users/id/' + req.params.userID, err);
                 } else {
-                    logger.info('/get/microservices/');
+                    logger.info('/get/microservices/where/users/id/' + req.params.userID);
                     res.send(resultSetData);
                 }
             });
@@ -231,9 +231,9 @@
             // select DB object by id
             higgsDB.all(sql, function(err, resultSetData) {
                 if(err !== null) {
-                    logger.error('/get/microservices/where/id/' + req.params.id, err);
+                    logger.error('/get/microservices/where/id/' + req.params.id + '/and/users/id/' + req.params.userID, err);
                 } else {
-                    logger.info('/get/microservices/where/id/' + req.params.id);
+                    logger.info('/get/microservices/where/id/' + req.params.id + '/and/users/id/' + req.params.userID);
                     res.send(resultSetData);
                 }
             });
