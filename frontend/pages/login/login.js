@@ -3,6 +3,7 @@
 
     angular.module('higgs.login', ['ngRoute'])
 
+
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/login', {
             templateUrl: 'pages/login/login.html',
@@ -12,43 +13,8 @@
         $routeProvider.otherwise({ redirectTo: '/login' });
     }])
 
-    .factory('AuthenticationAPI', ['$resource', function($resource) {
-        var remoteBaseURL = 'http://localhost:3040/login',
-            authenticationAPI = {
-                authenticate: $resource(remoteBaseURL, {}, {
-                    query: {
-                        method: 'POST',
-                        params: {
-                            post: true
-                        }
-                    }
-                })
-            };
 
-        return authenticationAPI;
-    }])
-
-    .factory('AddUsersAPI', ['$resource', function($resource) {
-        var remoteBaseURL = 'http://localhost:3040/add/users',
-            addUsersAPI = {
-                add: $resource(remoteBaseURL, {}, {
-                    query: {
-                        method: 'POST',
-                        params: {
-                            post: true
-                        }
-                    }
-                })
-            };
-
-        return addUsersAPI;
-    }])
-
-    .controller('LoginController', ['$scope', '$rootScope', '$location', '$cookies', '$cookieStore', 'GetServicesAPI', 'AuthenticationAPI', 'AddUsersAPI', 'toaster', function($scope, $rootScope, $location, $cookies, $cookieStore, GetServicesAPI, AuthenticationAPI, AddUsersAPI, toaster) {
-
-        GetServicesAPI.get.query().$promise.then(function(promisedServices) {
-            $rootScope.services = promisedServices;
-        });
+    .controller('LoginController', ['$scope', '$rootScope', '$location', '$cookies', '$cookieStore', 'AuthenticationAPI', 'AddUsersAPI', 'toaster', function($scope, $rootScope, $location, $cookies, $cookieStore, AuthenticationAPI, AddUsersAPI, toaster) {
 
         $scope.createAccount = false;
         $scope.loginForm = {};

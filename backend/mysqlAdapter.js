@@ -2,7 +2,7 @@
     'use strict';
 
     var mysql        = require('mysql'),
-        Q            = require('Q'),
+        q            = require('Q'),
         mysqlAdapter = {};
 
     mysqlAdapter.connect = function connect(dbObj) {
@@ -12,15 +12,14 @@
         		database : dbObj.dbName,
         		user     : dbObj.username,
         		password : dbObj.password
-        	};
+        	},
+            connection     = mysql.createConnection(assembledDBObj);
 
-        console.log(assembledDBObj);
+            console.log(assembledDBObj);
 
-    	mysqlDB.connection = mysql.createConnection(assembledDBObj);
-
-    	mysqlDB.connection.connect(function(err) {
+    	connection.connect(function(err) {
     		if(err) {
-    			console.log('Not connected ', err.toString(), ' RETRYING...');
+    			console.log('Not connected: ', err.toString(), ' RETRYING...');
             	d.reject();
     		} else {
     			console.log('Connected to MySQL');

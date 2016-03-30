@@ -1,130 +1,134 @@
 <md-content layout="column" flex class="md-padding mdc-bg-blue-grey-200">
     <div layout="row" layout-wrap>
-        <md-card flex="75" offset="15">
-            <md-card-content>
-                <form>
-                    <div layout="row">
-                        <div flex="50">
-                            <md-input-container>
-                                <label>Microservice Name</label>
+        <div flex="75" offset="15">
+            <h2 class="mdc-text-{{ newServiceForm.color }}-900 font-weight-400">Database Connection</h2>
 
-                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" ng-model="newServiceForm.microserviceName" autofocus />
-                            </md-input-container>
-                        </div> <!-- end flex 50 -->
+            <md-card>
+                <md-card-content>
+                    <form>
+                        <div layout="row">
+                            <div flex="50">
+                                <md-input-container>
+                                    <label>Microservice Name</label>
 
-                        <div flex="50">
-                            <md-input-container>
-                                <label>Database Name</label>
+                                    <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" autofocus required ng-model="newServiceForm.microserviceName"/>
+                                </md-input-container>
+                            </div> <!-- end flex 50 -->
 
-                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" ng-model="newServiceForm.dbName" />
-                            </md-input-container>
-                        </div> <!-- end flex 50 -->
-                    </div> <!-- end row -->
+                            <div flex="45" offset="5">
+                                <md-input-container>
+                                    <label>Database Name</label>
 
-                    <div layout="row">
-                        <div flex="50">
-                            <md-input-container>
-                                <label>Type</label>
+                                    <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" ng-model="newServiceForm.dbName" />
+                                </md-input-container>
+                            </div> <!-- end flex 50 -->
+                        </div> <!-- end row -->
 
-                                <md-select class="mdc-text-{{ newServiceForm.color }}-900" ng-model="newServiceForm.type">
-                                    <md-option value="mysql">MySQL</md-option>
-                                    <md-option value="oracle">Oracle</md-option>
-                                    <md-option value="ms-sql">Microsoft SQL</md-option>
-                                    <md-option value="sqlite">SQLite</md-option>
-                                </md-select>
-                            </md-input-container>
-                        </div> <!-- end flex 50 -->
+                        <div layout="row">
+                            <div flex="45">
+                                <md-input-container>
+                                    <label>Type</label>
 
-                        <div flex="50">
-                            <md-input-container>
-                                <label>Color</label>
+                                    <md-select class="mdc-text-{{ newServiceForm.color }}-900" ng-model="newServiceForm.type">
+                                        <md-option value="mysql">MySQL</md-option>
+                                        <md-option value="oracle">Oracle</md-option>
+                                        <md-option value="ms-sql">Microsoft SQL</md-option>
+                                        <md-option value="sqlite">SQLite</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div> <!-- end flex 50 -->
 
-                                <md-select class="mdc-text-{{ newServiceForm.color }}-900" ng-model="newServiceForm.color">
-                                    <md-option value="red">Red</md-option>
-                                    <md-option value="pink">Pink</md-option>
-                                    <md-option value="purple">Purple</md-option>
-                                    <md-option value="deep-purple">Deep Purple</md-option>
-                                    <md-option value="indigo">Indigo</md-option>
-                                    <md-option value="blue">Blue</md-option>
-                                    <md-option value="light-blue">Light Blue</md-option>
-                                    <md-option value="cyan">Cyan</md-option>
-                                    <md-option value="teal">Teal</md-option>
-                                    <md-option value="green">Green</md-option>
-                                    <md-option value="light-green">Light Green</md-option>
-                                    <md-option value="lime">Lime</md-option>
-                                    <md-option value="yellow">Yellow</md-option>
-                                    <md-option value="amber">Amber</md-option>
-                                    <md-option value="orange">Orange</md-option>
-                                    <md-option value="deep-orange">Deep Orange</md-option>
-                                    <md-option value="brown">Brown</md-option>
-                                    <md-option value="grey">Grey</md-option>
-                                    <md-option value="blue-grey">Blue Grey</md-option>
-                                </md-select>
-                            </md-input-container>
-                        </div> <!-- end flex 50 -->
-                    </div> <!-- end row -->
+                            <div flex="50" offset="5">
+                                <md-input-container>
+                                    <label>Color</label>
 
-                    <div layout="row">
-                        <div flex="75">
-                            <md-input-container>
-                                <label>Host</label>
+                                    <md-select class="mdc-text-{{ newServiceForm.color }}-900" ng-model="newServiceForm.color">
+                                        <md-option value="red">Red</md-option>
+                                        <md-option value="pink">Pink</md-option>
+                                        <md-option value="purple">Purple</md-option>
+                                        <md-option value="deep-purple">Deep Purple</md-option>
+                                        <md-option value="indigo">Indigo</md-option>
+                                        <md-option value="blue">Blue</md-option>
+                                        <md-option value="light-blue">Light Blue</md-option>
+                                        <md-option value="cyan">Cyan</md-option>
+                                        <md-option value="teal">Teal</md-option>
+                                        <md-option value="green">Green</md-option>
+                                        <md-option value="light-green">Light Green</md-option>
+                                        <md-option value="lime">Lime</md-option>
+                                        <md-option value="yellow">Yellow</md-option>
+                                        <md-option value="amber">Amber</md-option>
+                                        <md-option value="orange">Orange</md-option>
+                                        <md-option value="deep-orange">Deep Orange</md-option>
+                                        <md-option value="brown">Brown</md-option>
+                                        <md-option value="grey">Grey</md-option>
+                                        <md-option value="blue-grey">Blue Grey</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div> <!-- end flex 50 -->
+                        </div> <!-- end row -->
 
-                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" ng-model="newServiceForm.host" />
-                            </md-input-container>
-                        </div> <!-- end flex -->
+                        <div layout="row">
+                            <div flex="70">
+                                <md-input-container>
+                                    <label>Host</label>
 
-                        <div flex>
-                            <md-input-container>
-                                <label>Port</label>
+                                    <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" ng-model="newServiceForm.host" />
+                                </md-input-container>
+                            </div> <!-- end flex -->
 
-                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="number" ng-model="newServiceForm.port" />
-                            </md-input-container>
-                        </div> <!-- end flex -->
-                    </div> <!-- end row -->
+                            <div flex offset="5">
+                                <md-input-container>
+                                    <label>Port</label>
 
-                    <div layout="row">
-                        <div flex>
-                            <md-input-container>
-                                <label>Username</label>
+                                    <input class="mdc-text-{{ newServiceForm.color }}-900" type="number" ng-model="newServiceForm.port" />
+                                </md-input-container>
+                            </div> <!-- end flex -->
+                        </div> <!-- end row -->
 
-                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" ng-model="newServiceForm.username" />
-                            </md-input-container>
-                        </div> <!-- end flex -->
+                        <div layout="row">
+                            <div flex>
+                                <md-input-container>
+                                    <label>Username</label>
 
-                        <div flex>
-                            <md-input-container>
-                                <label>Password</label>
+                                    <input class="mdc-text-{{ newServiceForm.color }}-900" type="text" ng-model="newServiceForm.username" />
+                                </md-input-container>
+                            </div> <!-- end flex -->
 
-                                <input class="mdc-text-{{ newServiceForm.color }}-900" type="password" ng-model="newServiceForm.password" />
-                            </md-input-container>
-                        </div> <!-- end flex -->
-                    </div> <!-- end row -->
-                </form>
-            </md-card-content>
+                            <div flex offset="5">
+                                <md-input-container>
+                                    <label>Password</label>
 
-            <div class="mdc-bg-{{ newServiceForm.color || 'blue-grey' }}-900">
-                <md-card-actions layout="row" layout-align="space-between center">
-                    <a href="" ng-click="clearNewServiceForm()">
-                        <md-button class="mdc-text-grey-100" flex="50">
-                            <md-icon aria-label="Delete" class="text-center mdc-text-grey-100 material-icons">
-                                close
-                            </md-icon>
+                                    <input class="mdc-text-{{ newServiceForm.color }}-900" type="password" ng-model="newServiceForm.password" />
+                                </md-input-container>
+                            </div> <!-- end flex -->
+                        </div> <!-- end row -->
+                    </form>
+                </md-card-content>
 
-                            Clear
-                        </md-button>
-                    </a>
+                <div class="mdc-bg-{{ newServiceForm.color || 'blue-grey' }}-900">
+                    <md-card-actions layout="row" layout-align="space-between center">
+                        <a href="" ng-click="clearNewServiceForm()">
+                            <md-button class="mdc-text-grey-100" flex="50">
+                                <md-icon aria-label="Delete" class="text-center mdc-text-grey-100 material-icons">
+                                    close
+                                </md-icon>
 
-                    <a href="" ng-click="submitNewServiceForm()">
-                        <md-button class="mdc-text-grey-100" flex="50">
-                            <md-icon aria-label="Save" class="text-center mdc-text-grey-100 material-icons">
-                                check
-                            </md-icon>
+                                Clear
+                            </md-button>
+                        </a>
 
-                            Save
-                        </md-button>
-                    </a>
-                </md-card-actions>
-            </div> <!-- end .mdc-bg-{{ service.color }}-900 -->
-        </md-card> <!-- ednd flex -->
+                        <a href="" ng-click="submitNewServiceForm()">
+                            <md-button class="mdc-text-grey-100" flex="50">
+                                <md-icon aria-label="Save" class="text-center mdc-text-grey-100 material-icons">
+                                    check
+                                </md-icon>
+
+                                Save
+                            </md-button>
+                        </a>
+                    </md-card-actions>
+                </div> <!-- end .mdc-bg-{{ service.color }}-900 -->
+            </md-card> <!-- end flex -->
+        </div> <!-- flex 75 -->
     </div> <!-- end row -->
 </md-content> <!-- end column -->

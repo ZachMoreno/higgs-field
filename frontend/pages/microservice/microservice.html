@@ -1,6 +1,8 @@
 <md-content layout="row" flex class="md-padding mdc-bg-blue-grey-200">
 
     <div flex="75" offset="15">
+        <h2 class="mdc-text-{{ service.color }}-900 font-weight-400">Database Connection</h2>
+
         <md-card>
             <md-card-content>
                 <form>
@@ -124,6 +126,8 @@
             </div> <!-- end .mdc-bg-{{ service.color }}-900 -->
         </md-card>
 
+        <h2 class="mdc-text-{{ service.color }}-900 font-weight-400">Add an End Point</h2>
+
         <md-card layout="column">
             <md-card-content>
                 <form>
@@ -180,6 +184,8 @@
                 </md-card-actions>
             </div> <!-- end .mdc-bg-{{ service.color }}-900 -->
         </md-card> <!-- end row -->
+
+        <h2 class="mdc-text-{{ service.color }}-900 font-weight-400">End Points</h2>
 
         <md-list>
             <md-list-item ng-repeat="endPoint in endPoints">

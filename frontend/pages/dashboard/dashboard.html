@@ -11,14 +11,14 @@
                 <md-card-actions layout="row" layout-align="space-between center">
                     <md-button class="mdc-text-{{ service.color }}-900" flex="50">
                         <md-icon aria-label="Power" class="text-center mdc-text-{{ service.color }}-900 material-icons">
-                            power
+                            storage
                         </md-icon>
                         {{ service.dbConnectionStatus || "Disconnected" }}
                     </md-button>
 
                     <md-button class="mdc-text-{{ service.color }}-900" flex="50">
                         <md-icon aria-label="Network" class="text-center mdc-text-{{ service.color }}-900 material-icons">
-                            swap_horiz
+                            wifi_tethering
                         </md-icon>
                         {{ service.endPointStatus || "Offline" }}
                     </md-button>

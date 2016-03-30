@@ -37,6 +37,10 @@ a {
     font-weight: 300;
 }
 
+.font-weight-400 {
+    font-weight: 400;
+}
+
 .font-weight-500 {
     font-weight: 500;
 }
@@ -96,7 +100,7 @@ ul.lined-list li:last-of-type {
 }
 
 input,
-.md-select-value *:first-child {
+.md-select-value {
     background-color: transparent;
     border: none;
     font-size: 20px;

@@ -36,13 +36,13 @@
 
             new (winston.transports.File)({
                 name: 'info-file',
-                filename: './public/logs/info.log',
+                filename: __dirname + '/public/logs/info.log',
                 level: 'info'
             }),
 
             new (winston.transports.File)({
                 name: 'error-file',
-                filename: './public/logs/error.log',
+                filename: __dirname + '/public/logs/error.log',
                 level: 'error'
             })
         ]
@@ -120,6 +120,7 @@
             }
         });
 
+
     router
         .get('/', function (req, res) {
             res.sendFile(__dirname + '/public/' + 'index.html');
@@ -157,6 +158,7 @@
                 }
             });
         })
+
 
         .post('/add/users', function(req, res, next) {
             var username   = req.body.username,
@@ -209,6 +211,7 @@
             });
         })
 
+
         .get('/get/microservices/where/id/:id/and/users/id/:userID', function(req, res, next) {
             var sql =   'SELECT microservices.id, ' +
                             'microservices.userID, ' +
@@ -238,6 +241,7 @@
                 }
             });
         })
+
 
         .post('/add/microservices', function(req, res, next) {
             var microserviceName = req.body.microserviceName,
@@ -283,6 +287,7 @@
             });
         })
 
+
         .get('/delete/microservices/where/id/:id', function(req, res, next) {
             higgsDB.beginTransaction(function(err, trans) {
                 trans.run('DELETE FROM microservices ' +
@@ -303,6 +308,7 @@
                 });
             });
         })
+
 
         .post('/update/microservices/where/id/:id', function(req, res, next) {
             var microserviceName       = req.body.microserviceName,
@@ -354,6 +360,7 @@
             });
         })
 
+
         .get('/get/databases/where/microservices/id/:id', function (req, res, next) {
             var sql = 'SELECT * FROM dbConnections ' +
                       'WHERE microserviceID = ' + req.params.id;
@@ -368,15 +375,14 @@
             });
         })
 
-        .post('/connect/databases/where/id/:id', function(req, res, next) {
+
+        .get('/connect/databases/where/id/:id', function(req, res, next) {
             var dbID = req.params.id;
 
             // attempt db connection only after we have the db data returned
-            dbConnector.getSingleDB(dbID).then(function(promisedDB) {
-                dbConnector.connectSingleDB(promisedDB).then(function(promisedDBConnection){
-                    res.send(promisedDBConnection);
-                }).done();
-            });
+            dbConnector.connectSingleDB(dbID).then(function(promisedDBConnection){
+                res.send(promisedDBConnection);
+            }).done();
         })
 
 
@@ -393,6 +399,7 @@
             });
         })
 
+
         .get('/get/endpoints/where/id/:id', function (req, res, next) {
             var sql = 'SELECT * FROM endPoints ' +
                       'WHERE id = ' + req.params.id;
@@ -407,6 +414,7 @@
             });
         })
 
+
         .get('/get/endpoints/where/microservices/id/:id/', function(req,res,next) {
             var sql = 'SELECT * FROM endPoints ' +
                       'WHERE microserviceID = ' + req.params.id;
@@ -420,6 +428,7 @@
                 }
             });
         })
+
 
         .post('/add/endpoints', function(req, res, next) {
             var microserviceID   = req.body.microserviceID,

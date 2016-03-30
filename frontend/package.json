@@ -4,9 +4,10 @@
   "description": "higs",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run lite",
+    "lite": "lite-server"
   },
-  "author": "The Disruptory",
+  "author": "Zachariah Moreno",
   "license": "UNLICENSED",
   "dependencies": {
     "angular": "^1.4.7",
@@ -20,5 +21,8 @@
     "animate.css": "^3.4.0",
     "material-design-color-palette": "^1.1.0",
     "material-design-lite": "^1.0.5"
+  },
+  "devDependencies": {
+    "lite-server": "^2.1.0"
   }
 }
