@@ -72,5 +72,19 @@
             };
 
         return addUsersAPI;
+    }])
+
+
+    .factory('DatabaseAPI', ['$resource', function($resource) {
+        var remoteBaseURL = 'http://localhost:3040/connect/databases/where/id/:id',
+            databaseAPI   = {
+                connect: $resource(remoteBaseURL, { id: '@id' }, {
+                    query: {
+                        method: 'GET'
+                    }
+                })
+            };
+
+        return databaseAPI;
     }]);
 })();

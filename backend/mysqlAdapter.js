@@ -9,6 +9,7 @@
     	var d              = q.defer(),
             assembledDBObj = {
         		host     : dbObj.host,
+                port     : 3307,
         		database : dbObj.dbName,
         		user     : dbObj.username,
         		password : dbObj.password
@@ -19,11 +20,11 @@
 
     	connection.connect(function(err) {
     		if(err) {
-    			console.log('Not connected: ', err.toString(), ' RETRYING...');
+    			// console.log('Not connected: ', err.toString(), ' RETRYING...');
             	d.reject();
     		} else {
     			console.log('Connected to MySQL');
-                d.resolve(mysqlDB.connection);
+                d.resolve(connection);
     		}
     	});
 

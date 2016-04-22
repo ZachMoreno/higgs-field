@@ -28,14 +28,18 @@
                     };
 
                     mysql.connect(dbObj).then(function(mysql){
-                	    mysql.on('error', function (err, result) {
-                	        connection.status = 'connection error';
-                	    });
+                	    // mysql.on('error', function (err, result) {
+                	    //     connection.status = 'connection error';
+                        //     d.resolve(connection);
+                	    // });
 
                         connection.status = 'connected';
 
                         d.resolve(connection);
-                	});
+                	}, function() {
+                        connection.status = 'connection error';
+                        d.resolve(connection);
+                    });
 
                     break;
 

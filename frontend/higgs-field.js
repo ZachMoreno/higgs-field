@@ -62,6 +62,6 @@
             console.log($rootScope.services);
 
             $location.path('/login');
-        }
+        };
     }]);
 })();

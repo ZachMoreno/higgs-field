@@ -25,8 +25,10 @@
     }])
 
     .factory('GetServiceAPI', ['$resource', '$cookies', '$cookieStore', function($resource, $cookies, $cookieStore) {
+        var userID;
+
         if($cookieStore.get('authentication')){
-            var userID = $cookieStore.get('authentication').id
+            userID = $cookieStore.get('authentication').id;
         }
 
         var remoteBaseURL  = 'http://localhost:3040/get/microservices/where/id/:serviceID/and/users/id/' + userID,
@@ -143,11 +145,11 @@
             endPoints.$promise.then(function(promisedEndPoints) {
                 $scope.endPoints = promisedEndPoints;
             });
-        }
+        };
 
         $scope.clearNewEndPointForm = function clearNewEndPointForm() {
             $scope.newEndPointForm = {};
-        }
+        };
 
         service.$promise.then(function(promisedService) {
     		$scope.service = promisedService[0];
@@ -161,5 +163,5 @@
         GetServicesAPI.get.query().$promise.then(function(promisedServices) {
             $rootScope.services = promisedServices;
         });
-    }])
+    }]);
 })();
