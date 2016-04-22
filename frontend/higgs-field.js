@@ -21,7 +21,11 @@
     ])
 
 
-    .config(function() {})
+    .config(['$mdThemingProvider', function($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+            .primaryPalette('blue-grey')
+            .accentPalette('green');
+    }])
 
 
     .run(['$rootScope', '$location', '$cookies', '$cookieStore', 'toaster',

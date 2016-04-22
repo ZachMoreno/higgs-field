@@ -149,7 +149,7 @@ md-list-item .md-no-style {
     margin-top: -60px;
 }
 
-#login .md-layout-row.layout-wrap {
+#login .layout-row.layout-wrap {
     z-index: 99999;
 }
 
@@ -217,4 +217,10 @@ md-list-item .md-no-style {
 .fadeInDown {
   -webkit-animation-name: fadeInDown;
   animation-name: fadeInDown;
+}
+
+#add-service-fab {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
 }
