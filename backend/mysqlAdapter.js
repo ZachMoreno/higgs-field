@@ -9,7 +9,7 @@
     	var d              = q.defer(),
             assembledDBObj = {
         		host     : dbObj.host,
-                port     : 3307,
+                port     : dbObj.port,
         		database : dbObj.dbName,
         		user     : dbObj.username,
         		password : dbObj.password

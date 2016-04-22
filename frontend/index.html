@@ -88,7 +88,8 @@
 						<a ng-repeat="service in services | filter:searchQuery" ng-href="#/microservice/{{ service.id }}">
 							<md-list-item class="mdc-text-blue-grey-200">
 		                        <md-icon aria-label="Dashboard" class="mdc-text-{{ service.color }}-300 material-icons md-avatar-icon">
-		                            cloud
+		                            <!-- bubble_chart -->
+									blur_on
 		                        </md-icon>
 
 								<p>{{ service.microserviceName }}</p>
@@ -100,7 +101,7 @@
 						<a href="" class="mdc-text-blue-grey-200" ng-click="logout()">
 							<md-list-item>
 			                    <md-icon aria-label="Login" class="mdc-text-blue-grey-200 material-icons md-avatar-icon">
-			                        eject
+			                        exit_to_app
 			                    </md-icon>
 
 								<p>
