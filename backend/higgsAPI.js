@@ -382,6 +382,8 @@
             // attempt db connection only after we have the db data returned
             dbConnector.connectSingleDB(dbID).then(function(promisedDBConnection){
                 res.send(promisedDBConnection);
+            }, function(err) {
+                res.send(err);
             }).done();
         })
 
@@ -421,9 +423,9 @@
 
             higgsDB.all(sql, function(err, resultSetData) {
                 if(err !== null) {
-                    logger.error('/get/endpoints/where/microservice/id/' + req.params.id, err);
+                    logger.error('/get/endpoints/where/microservices/id/' + req.params.id, err);
                 } else {
-                    logger.info('/get/endpoints/where/microservice/id/' + req.params.id);
+                    logger.info('/get/endpoints/where/microservices/id/' + req.params.id);
                     res.send(resultSetData);
                 }
             });
@@ -451,7 +453,9 @@
                         logger.error('/add/endpoints/', err);
                     } else {
                         logger.info('added endpoint');
-                        res.redirect('/get/endpoints');
+                        res.send({
+                            feedback: route + ' Endpoint Added Successfuly'
+                        });
                     }
                 });
             });

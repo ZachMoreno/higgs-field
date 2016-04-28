@@ -13,22 +13,6 @@
         });
     }])
 
-    .factory('AddServicesAPI', ['$resource', function($resource) {
-        var remoteBaseURL = 'http://localhost:3040/add/microservices/',
-            addServicesAPI = {
-                add: $resource(remoteBaseURL, {}, {
-                    query: {
-                        method: 'POST',
-                        params: {
-                            post: true
-                        }
-                    }
-                })
-            };
-
-        return addServicesAPI;
-    }])
-
     .controller('AddController', ['$scope', '$rootScope', '$location', '$cookies', '$cookieStore', 'GetServicesAPI', 'AddServicesAPI', function($scope, $rootScope, $location, $cookies, $cookieStore, GetServicesAPI, AddServicesAPI) {
         $scope.newServiceForm = {};
         $scope.newServiceForm.userID = $cookieStore.get('authentication').id;

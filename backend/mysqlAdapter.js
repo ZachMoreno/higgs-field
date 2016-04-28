@@ -20,8 +20,7 @@
 
     	connection.connect(function(err) {
     		if(err) {
-    			// console.log('Not connected: ', err.toString(), ' RETRYING...');
-            	d.reject();
+            	d.reject('Not connected: ', err.toString(), ' RETRYING...');
     		} else {
     			console.log('Connected to MySQL');
                 d.resolve(connection);

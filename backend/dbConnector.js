@@ -24,21 +24,15 @@
                 case "mysql":
 
                     var connection = {
-                        status: 'mysql connection not configured'
+                        status: 'not configured'
                     };
 
                     mysql.connect(dbObj).then(function(mysql){
-                	    // mysql.on('error', function (err, result) {
-                	    //     connection.status = 'connection error';
-                        //     d.resolve(connection);
-                	    // });
-
                         connection.status = 'connected';
-
                         d.resolve(connection);
                 	}, function() {
-                        connection.status = 'connection error';
-                        d.resolve(connection);
+                        connection.status = 'not connected';
+                        d.reject(connection);
                     });
 
                     break;
@@ -46,7 +40,7 @@
                 case "oracle":
 
                     d.resolve({
-                        status: 'disconnected'
+                        status: 'not configured'
                     });
 
                     break;
@@ -54,7 +48,7 @@
                 case "ms-sql":
 
                     d.resolve({
-                        status: 'disconnected'
+                        status: 'not configured'
                     });
 
                     break;
@@ -62,7 +56,7 @@
                 case "sqlite":
 
                     d.resolve({
-                        status: 'disconnected'
+                        status: 'not configured'
                     });
 
                     break;
